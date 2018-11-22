@@ -53,7 +53,7 @@ public class UserService implements UserDetailsService {
 	}
 	
 	public Collection<User> findByNameLike(String name) {
-		return userRepository.findByNameLike(name);
+		return userRepository.findByNameContaining(name);
 	}
 	
 	public User pickupUser(Principal principal) {

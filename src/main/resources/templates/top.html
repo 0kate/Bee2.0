@@ -4,16 +4,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+  
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <script src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script> $(document).ready(function() {
-	    $('#post-table').DataTable();
-	});
+  <script> 
+	  $(document).ready(function() {
+		    $('#post-table').DataTable({
+		    	responsive: true
+		    });
+		});
   </script>
 </head>
 
@@ -29,13 +36,13 @@
           <span class="navbar-toggler-icon"></span>
         </button>
       </div>
-      <form class="form-inline" th:action="@{/bee/find}" method="get">
+      <form class="form-inline" th:action="@{/bee/find}" method="get" style="margin-left: 600px;">
         <div class="input-group">
           <input type="text" class="form-control" id="inlineFormInputGroup" name="username" placeholder="Search">
           <div class="input-group-append"><button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button></div>
         </div>
       </form>
-      <div class="collapse navbar-collapse" id="navbar16">
+      <div class="collapse navbar-collapse" id="navbar16" style="margin-left: 50px;">
         <ul class="navbar-nav">
           <li class="nav-item"> <a class="nav-link" href="#">Features</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#">Pricing</a> </li>
@@ -44,7 +51,13 @@
         </ul>
         <div class="btn-group">
           <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Menu </button>
-          <div class="dropdown-menu"> <a class="dropdown-item" href="#">Profile</a>
+          <div class="dropdown-menu"> 
+          	<a class="dropdown-item" href="#">Profile</a>
+          	<div class="dropdown-divider"></div>
+          	<form th:action="@{/bee/setting}" method="get">
+            	<input type="hidden" name="username" th:value="${user.name}" />
+            	<input type="submit" class="dropdown-item" value="Setting" />
+            </form>
             <div class="dropdown-divider"></div>
             <form th:action="@{/bee/logout}" method="post"><input type="submit" class="dropdown-item" value="Logout"></form>
           </div>
@@ -104,7 +117,7 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <table id="post-table" class="table table-bordered">
+                  <table id="post-table" class="table display nowrap">
                     <thead>
                       <tr>
                         <th>Id</th>
