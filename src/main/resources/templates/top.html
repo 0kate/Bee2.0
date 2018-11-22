@@ -145,13 +145,17 @@
         <div class="col-md-3">
           <div class="card">
             <div class="card-header">
-              <a href="createmessage.html">Message<span class="badge" style="margin-left:5px">99</span></a>
+              <a href="createmessage.html">Message<span class="badge" style="margin-left:5px" th:text="${messageList.size()}"></span></a>
             </div>
             <div class="card-body">
               <div class="col-xs-10 text-left">
                 <ul class="media-list">
                   <li class="media">
                     <div class="media-body">
+                    	<div th:each="message : ${messageList}" th:object="${message}">
+                    		<p th:text="*{id}"></p>
+                    		<p th:text="*{title}"></p>
+                    	</div>
                     </div>
                   </li>
                 </ul>
