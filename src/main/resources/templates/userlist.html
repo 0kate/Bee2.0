@@ -51,7 +51,7 @@
 	  	<tbody>
 	  		<tr th:each="user : ${userList}" th:object="${user}">
 	  			<td th:text="*{id}"></td>
-	  			<td th:text="*{name}"></td>
+	  			<td><a th:text="*{name}" th:href="@{/bee/profile(username=*{name})}"></a></td>
 	  			<td th:text="*{age}"></td>
 	  			<td th:text="*{location}"></td>
 	  		</tr>

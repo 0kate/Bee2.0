@@ -1,9 +1,13 @@
 package com.example.bee2.entity;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +28,9 @@ public class User {
 	private String location;
 	private Long failed;
 	private boolean enabled;
+	
+	@Relationship(type="FOLLOW", direction=Relationship.OUTGOING)
+	private Set<User> following = new HashSet<>();
 	
 	public User(String name, Long age, String email, String password, String location) {
 		setName(name);

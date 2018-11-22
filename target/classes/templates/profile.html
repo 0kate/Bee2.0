@@ -6,12 +6,18 @@
 </head>
 <body>
 	<h1>Profile</h1>
-	<div th:object="${user}">
+	<div th:object="${targetUser}">
 		<p th:text="'Id : ' + *{id}"></p>
 		<p th:text="'Username : ' + *{name}"></p>
 		<p th:text="'Age : ' + *{age}"></p>
 		<p th:text="'Location : ' + *{location}"></p>
 	</div>
+	<form th:action="@{/bee/follow}" method="get">
+		<input type="hidden" name="fromuser" th:value="${user.name}" />
+		<input type="hidden" name="touser" th:value="${targetUser.name}" />
+		<input type="submit" value="Follow" />
+	</form>
 	<a href="/bee/top">Top</a>
+	<a href="javascript:history.back()">Back</a>
 </body>
 </html>

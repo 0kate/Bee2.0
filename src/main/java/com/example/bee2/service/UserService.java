@@ -56,6 +56,14 @@ public class UserService implements UserDetailsService {
 		return userRepository.findByNameContaining(name);
 	}
 	
+	public void follow(String fromUserName, String toUserName) {
+	  User from = userRepository.findByName(fromUserName);
+	  User to = userRepository.findByName(toUserName);
+	  
+	  from.getFollowing().add(to);
+	  userRepository.save(from);
+	}
+	
 	public User pickupUser(Principal principal) {
 		Authentication auth = (Authentication)principal;
 		UserInfo user = (UserInfo) auth.getPrincipal();
