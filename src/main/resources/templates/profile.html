@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+	<h1>Profile</h1>
+	<div th:object="${user}">
+		<p th:text="'Id : ' + *{id}"></p>
+		<p th:text="'Username : ' + *{name}"></p>
+		<p th:text="'Age : ' + *{age}"></p>
+		<p th:text="'Location : ' + *{location}"></p>
+	</div>
+	<a href="/bee/top">Top</a>
+</body>
+</html>
