@@ -20,11 +20,13 @@ public class Post {
 	private String text;
 	private String date;
 	private String posted;
+	private String url;
 	
-	public Post(String title, String text, String date, String posted) {
+	public Post(String title, String text, String date, String posted, String url) {
 		this.title = title;
 		this.text = text;
 		this.date = date;
 		this.posted = posted;
+		this.url = url;
 	}
 }

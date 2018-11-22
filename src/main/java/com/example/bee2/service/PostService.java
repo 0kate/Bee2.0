@@ -14,8 +14,8 @@ public class PostService {
 	@Autowired
 	private PostRepository postRepository;
 	
-	public void addNewPost(String title, String text, String posted) {
-		Post post = new Post(title, text, getDateStr(), posted);
+	public void addNewPost(String title, String text, String posted, String url) {
+		Post post = new Post(title, text, getDateStr(), posted, url);
 		postRepository.save(post);
 	}
 	

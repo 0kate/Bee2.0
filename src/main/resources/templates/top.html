@@ -23,7 +23,6 @@
 		});
   </script>
 </head>
-
 <body>
   <nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <div class="container-fluid">
@@ -117,7 +116,7 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <table id="post-table" class="table display nowrap">
+                  <table id="post-table" class="table display nowrap" style="witdh: 100%;">
                     <thead>
                       <tr>
                         <th>Id</th>
@@ -125,6 +124,7 @@
                         <th>Text</th>
                         <th>Date</th>
                         <th>Posted</th>
+                        <th>GitHub URL</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -134,6 +134,7 @@
                         <td th:text="*{text}"></td>
                         <td th:text="*{date}"></td>
                         <td th:text="*{posted}"></td>
+                        <td th:utext="*{url}"></td>
                       </tr>
                     </tbody>
                   </table>
@@ -155,6 +156,7 @@
                     	<div th:each="message : ${messageList}" th:object="${message}">
                     		<p th:text="*{id}"></p>
                     		<p th:text="*{title}"></p>
+                    		<hr />
                     	</div>
                     </div>
                   </li>
