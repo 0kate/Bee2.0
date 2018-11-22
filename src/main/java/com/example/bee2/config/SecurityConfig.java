@@ -20,9 +20,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.formLogin().loginPage("/bee/login").defaultSuccessUrl("/bee/top").failureUrl("/bee/login?error=true").permitAll().and()
-						.logout().logoutRequestMatcher(new AntPathRequestMatcher("/bee/logout")).logoutSuccessUrl("/bee/login").permitAll();
+					.logout().logoutRequestMatcher(new AntPathRequestMatcher("/bee/logout")).logoutSuccessUrl("/bee/login").permitAll();
 		http.authorizeRequests().antMatchers("/css/**", "/js/**", "/assets/**", "/bee/login/**", "/bee/regist/**").permitAll()
-			.anyRequest().authenticated();
+					.anyRequest().authenticated();
 	}
 	
 	@Autowired
