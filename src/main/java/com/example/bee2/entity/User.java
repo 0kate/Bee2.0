@@ -34,7 +34,7 @@ public class User {
 	@Relationship(type="FOLLOW", direction=Relationship.OUTGOING)
 	private Set<User> following = new HashSet<>();
 
-	public User(String name, Long age, String email, String password, String location) {
+	public User(String name, Long age, String email, String password, String location, String role) {
 		setName(name);
 		setAge(age);
 		setEmail(email);
