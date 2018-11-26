@@ -74,8 +74,9 @@ public class UserService implements UserDetailsService {
 	public void loginFailed(String username) {
 		User user = userRepository.findByName(username);
 		user.setFailed(user.getFailed() + 1L);
-		if (user.getFailed() > 3) {
+		if (user.getFailed() >= 3) {
 			user.setLockout(true);
 		}
+		userRepository.save(user);
 	}
 }
