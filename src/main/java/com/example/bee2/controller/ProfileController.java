@@ -1,5 +1,7 @@
 package com.example.bee2.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +17,9 @@ public class ProfileController {
 	private UserService userService;
 	
 	@RequestMapping(value="/bee/profile", method=RequestMethod.GET)
-	public String profilePage(@RequestParam("username") String username, Model model) {
-		model.addAttribute("user", userService.findByName(username));
+	public String profilePage(@RequestParam("username") String username, Model model, Principal principal) {
+	    model.addAttribute("user", userService.pickupUser(principal));
+		model.addAttribute("targetUser", userService.findByName(username));
 		return "profile";
 	}
 }
