@@ -12,6 +12,5 @@ import com.example.bee2.entity.User;
 @Repository
 public interface UserRepository extends Neo4jRepository<User, Long> {
 	public User findByName(String name);
-	
 	public Collection<User> findByNameContaining(String name);
 }

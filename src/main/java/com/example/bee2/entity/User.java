@@ -45,4 +45,17 @@ public class User {
 		setEnabled(true);
 		setRole(role);
 	}
+	
+	public boolean noFollowing() {
+	  return (following == null);
+	}
+	
+	public void createFollowingSet() {
+	  following = new HashSet<>();
+	}
+	
+	@Override
+	public int hashCode() {
+	  return Integer.parseInt(id.toString());
+	}
 }

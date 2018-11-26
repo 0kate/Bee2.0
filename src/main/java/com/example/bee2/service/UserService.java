@@ -68,8 +68,19 @@ public class UserService implements UserDetailsService {
 	  User from = userRepository.findByName(fromUserName);
 	  User to = userRepository.findByName(toUserName);
 	  
+	  if (from.noFollowing()) {
+	    from.createFollowingSet();
+	  }
+	  
 	  from.getFollowing().add(to);
 	  userRepository.save(from);
+	}
+	
+	public Boolean isFollowing(User user1, User user2) {
+	  if (user1.noFollowing()) {
+	    return false;
+	  }
+	  return user1.getFollowing().contains(user2);
 	}
 	
 	public User pickupUser(Principal principal) {
