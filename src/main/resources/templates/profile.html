@@ -15,9 +15,14 @@
 	<form th:action="@{/bee/follow}" method="get">
 		<input type="hidden" name="fromuser" th:value="${user.name}" />
 		<input type="hidden" name="touser" th:value="${targetUser.name}" />
-		<div th:switch="${status}">
-			<p th:case="following"><input type="submit" value="Follow" disabled="disabled" /></p>
-			<p th:case="nofollowing"><input type="submit" value="Follow" /></p>
+		<div th:switch="${following}">
+			<p th:case=true>
+				<input type="hidden" name="release" value="false" />
+				<input type="submit" value="Release" />
+			</p>
+			<p th:case=false>
+				<input type="submit" value="Follow" />
+			</p>
 		</div>
 	</form>
 	<a href="/bee/top">Top</a>

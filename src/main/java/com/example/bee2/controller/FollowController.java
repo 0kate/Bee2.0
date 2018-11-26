@@ -14,8 +14,15 @@ public class FollowController {
   private UserService userService;
   
   @RequestMapping(value="/bee/follow", method=RequestMethod.GET)
-  public String follow(@RequestParam("fromuser") String fromUserName, @RequestParam("touser") String toUserName) {
-    userService.follow(fromUserName, toUserName);
-    return "redirect:/bee/profile?username=" + toUserName; 
+  public String follow(@RequestParam("fromuser") String fromUserName, 
+                         @RequestParam("touser") String toUserName, 
+                         @RequestParam(name="release", required=false) Boolean release) {
+    if (release == null) {
+      userService.follow(fromUserName, toUserName);
+    } else {
+      userService.release(fromUserName, toUserName);
+    }
+    
+    return "redirect:/bee/profile?username=" + toUserName;
   }
 }

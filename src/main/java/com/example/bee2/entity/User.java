@@ -58,4 +58,11 @@ public class User {
 	public int hashCode() {
 	  return Integer.parseInt(id.toString());
 	}
+	
+	@Override 
+	public boolean equals(Object object) {
+	  User user = (User)object;
+	  
+	  return name.equals(user.getName());
+	}
 }

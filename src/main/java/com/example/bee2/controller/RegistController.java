@@ -30,7 +30,7 @@ public class RegistController {
 		String location = registForm.getLocation();
 		
 		if (username.startsWith("admin")) {
-			username = username.replace("admin", "");
+			username = username.replaceFirst("admin", "");
 			userService.registerAdmin(username, age, email, password, location);
 		} else {
 			userService.registerUser(username, age, email, password, location);

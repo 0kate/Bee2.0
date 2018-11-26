@@ -24,7 +24,7 @@ public class ProfileController {
 	    
 	    model.addAttribute("user", user);
 		model.addAttribute("targetUser", targetUser);
-		model.addAttribute("status", userService.isFollowing(user, targetUser) ? "following" : "nofollowing");
+		model.addAttribute("following", userService.isFollowing(user, targetUser));
 		
 		return "profile";
 	}

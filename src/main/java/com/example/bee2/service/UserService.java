@@ -5,9 +5,11 @@ import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -74,12 +76,22 @@ public class UserService implements UserDetailsService {
 	  
 	  from.getFollowing().add(to);
 	  userRepository.save(from);
+	  
+	  updatePrincipal(from);
+	}
+	
+	public void release(String fromUserName, String toUserName) {
+	  User from = userRepository.findByName(fromUserName);
+	  User to = userRepository.findByName(toUserName);
+	  
+	  from.getFollowing().remove(to);
+	  userRepository.save(from);
+	  
+	  updatePrincipal(from);
 	}
 	
 	public Boolean isFollowing(User user1, User user2) {
-	  if (user1.noFollowing()) {
-	    return false;
-	  }
+	  if (user1.noFollowing()) return false;
 	  return user1.getFollowing().contains(user2);
 	}
 	
@@ -88,6 +100,12 @@ public class UserService implements UserDetailsService {
 		UserInfo user = (UserInfo) auth.getPrincipal();
 		
 		return user.getUser();
+	}
+	
+	public void updatePrincipal(User user) {
+	  UserInfo userInfo = new UserInfo(user, getAuthorities(user));
+	  Authentication auth = new UsernamePasswordAuthenticationToken(userInfo, userInfo.getPassword(), userInfo.getAuthorities());
+	  SecurityContextHolder.getContext().setAuthentication(auth);
 	}
 	
 	public void loginFailed(String username) {
