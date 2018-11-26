@@ -1,6 +1,7 @@
 package com.example.bee2.entity;
 
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,12 +30,12 @@ public class User {
 	private Long failed;
 	private boolean lockout;
 	private boolean enabled;
-	private String role;
+	private String[] roles;
 
 	@Relationship(type="FOLLOW", direction=Relationship.OUTGOING)
 	private Set<User> following = new HashSet<>();
 
-	public User(String name, Long age, String email, String password, String location, String role) {
+	public User(String name, Long age, String email, String password, String location, String[] roles) {
 		setName(name);
 		setAge(age);
 		setEmail(email);
@@ -43,7 +44,7 @@ public class User {
 		setFailed(0L);
 		setLockout(false);
 		setEnabled(true);
-		setRole(role);
+		setRoles(roles);
 	}
 	
 	public boolean noFollowing() {

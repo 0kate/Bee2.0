@@ -39,19 +39,21 @@ public class UserService implements UserDetailsService {
 	}
 
 	public Collection<GrantedAuthority> getAuthorities(User user) {
-		return AuthorityUtils.createAuthorityList("ROLE_USER");
+		return AuthorityUtils.createAuthorityList(user.getRoles());
 	}
 	
 	public void registerUser(String username, Long age, String email, String password, String location) {
-		registUser(username, age, email, password, location, "ROLE_USER");
+	  String[] roles = {"ROLE_USER"};
+	  registUser(username, age, email, password, location, roles);
 	}
 	
 	public void registerAdmin(String username, Long age, String email, String password, String location) {
-		registUser(username, age, email, password, location, "ROLE_ADMIN");
+	  String[] roles = {"ROLE_USER", "ROLE_ADMIN"};
+	  registUser(username, age, email, password, location, roles);
 	}
 	
-	public void registUser(String username, Long age, String email, String password, String location, String role) {
-		userRepository.save(new User(username, age, email, passwordEncoder.encode(password), location, role));
+	public void registUser(String username, Long age, String email, String password, String location, String[] roles) {
+		userRepository.save(new User(username, age, email, passwordEncoder.encode(password), location, roles));
 	}
 	
 	public void addNewUser(User user) {
