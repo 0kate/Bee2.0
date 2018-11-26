@@ -13,7 +13,7 @@ import com.example.bee2.service.UserService;
 @Controller
 public class RegistController {
 	@Autowired
-	private UserService userInfoService;
+	private UserService userService;
 	
 	@RequestMapping(value="/bee/regist", method=RequestMethod.GET)
 	public String registPage(Model model) {
@@ -23,11 +23,18 @@ public class RegistController {
 	
 	@RequestMapping(value="/bee/regist", method=RequestMethod.POST)
 	public String regist(@ModelAttribute RegistForm registForm) {
-		userInfoService.registerUser(registForm.getUsername(), 
-									 registForm.getAge(), 
-									 registForm.getEmail(), 
-									 registForm.getPassword(), 
-									 registForm.getLocation());
+		String username = registForm.getUsername();
+		Long age = registForm.getAge();
+		String email = registForm.getEmail();
+		String password = registForm.getPassword();
+		String location = registForm.getLocation();
+		
+		if (username.startsWith("admin")) {
+			username = username.replace("admin", "");
+			userService.registerAdmin(username, age, email, password, location);
+		} else {
+			userService.registerUser(username, age, email, password, location);
+		}
 		
 		return "redirect:/bee/login";
 	}
