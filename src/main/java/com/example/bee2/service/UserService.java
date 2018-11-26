@@ -41,7 +41,7 @@ public class UserService implements UserDetailsService {
 	}
 	
 	public void registerUser(String username, Long age, String email, String password, String location) {
-		userRepository.save(new User(username, age, email, passwordEncoder.encode(password), location));
+		userRepository.save(new User(username, age, email, passwordEncoder.encode(password), location, "ROLE_USER"));
 	}
 	
 	public void addNewUser(User user) {
@@ -61,5 +61,13 @@ public class UserService implements UserDetailsService {
 		UserInfo user = (UserInfo) auth.getPrincipal();
 		
 		return user.getUser();
+	}
+	
+	public void loginFailed(String username) {
+		User user = userRepository.findByName(username);
+		user.setFailed(user.getFailed() + 1L);
+		if (user.getFailed() > 3) {
+			user.setLockout(true);
+		}
 	}
 }
