@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Messages</title>
+</head>
+<body>
+	<h1>Message</h1>
+	<div>
+		<h2>Create Message</h2>
+		<form th:action="@{/bee/message}" th:object="${messageForm}" method="post">
+			<input type="text" name="reciever" placeholder="To" />
+			<input type="text" name="title" placeholder="Title" />
+			<textarea name="text" placeholder="Text"></textarea>
+			<input type="submit" value="send" />
+		</form>
+	</div>
+	<a href="/bee/top">Top</a>
+	<div>
+		<h2>Message List</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>From</th>
+					<th>Date</th>
+					<th>Text</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="message : ${messageList}" th:object="${message}">
+					<td th:text="*{title}"></td>
+					<td th:text="*{from}"></td>
+					<td th:text="*{date}"></td>
+					<td th:text="*{text}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

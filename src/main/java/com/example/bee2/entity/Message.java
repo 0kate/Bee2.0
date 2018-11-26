@@ -1,5 +1,6 @@
 package com.example.bee2.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,10 +20,15 @@ public class Message {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	@Column(name="sender", nullable=false)
 	private String sender;
+	@Column(name="reciever", nullable=false)
 	private String reciever;
+	@Column(name="date", nullable=false)
 	private String date;
+	@Column(name="title", nullable=false)
 	private String title;
+	@Column(name="text", nullable=false)
 	private String text;
 	
 	public Message(String sender, String reciever, String date, String title, String text) {
