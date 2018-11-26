@@ -23,15 +23,19 @@ public class User {
 	private String password;
 	private String location;
 	private Long failed;
+	private boolean lockout;
 	private boolean enabled;
+	private String role;
 	
-	public User(String name, Long age, String email, String password, String location) {
+	public User(String name, Long age, String email, String password, String location, String role) {
 		setName(name);
 		setAge(age);
 		setEmail(email);
 		setPassword(password);
 		setLocation(location);
 		setFailed(0L);
+		setLockout(false);
 		setEnabled(true);
+		setRole(role);
 	}
 }
