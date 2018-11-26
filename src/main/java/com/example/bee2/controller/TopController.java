@@ -27,6 +27,7 @@ public class TopController {
 	public String topPage(Model model, Principal principal) {
 	    User user = userService.pickupUser(principal);
 		model.addAttribute("user", user);
+		model.addAttribute("isAdmin", user.isAdmin());
 		model.addAttribute("postList", postService.getAllPost());
 		model.addAttribute("postForm", new PostForm());
 		model.addAttribute("messageList", messageService.findByReciever(user.getName()));

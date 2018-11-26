@@ -21,8 +21,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.formLogin().loginPage("/bee/login").defaultSuccessUrl("/bee/top").failureUrl("/bee/login?error=true").permitAll().and()
 					.logout().logoutRequestMatcher(new AntPathRequestMatcher("/bee/logout")).logoutSuccessUrl("/bee/login").permitAll();
-		http.authorizeRequests().antMatchers("/css/**", "/js/**", "/assets/**", "/bee/login/**", "/bee/regist/**").permitAll()
-					.antMatchers("/bee/admin/**").hasAuthority("ROLE_ADMIN")
+		http.authorizeRequests().antMatchers("/html/**", "/css/**", "/js/**", "/assets/**", "/bee/login/**", "/bee/regist/**").permitAll()
+					.antMatchers("/bee/admin/**").hasRole("ADMIN")
 					.anyRequest().authenticated();
 	}
 	

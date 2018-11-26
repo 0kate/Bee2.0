@@ -44,16 +44,16 @@ public class UserService implements UserDetailsService {
 	
 	public void registerUser(String username, Long age, String email, String password, String location) {
 	  String[] roles = {"ROLE_USER"};
-	  registUser(username, age, email, password, location, roles);
+	  registUser(username, age, email, password, location, roles, false);
 	}
 	
 	public void registerAdmin(String username, Long age, String email, String password, String location) {
 	  String[] roles = {"ROLE_USER", "ROLE_ADMIN"};
-	  registUser(username, age, email, password, location, roles);
+	  registUser(username, age, email, password, location, roles, true);
 	}
 	
-	public void registUser(String username, Long age, String email, String password, String location, String[] roles) {
-		userRepository.save(new User(username, age, email, passwordEncoder.encode(password), location, roles));
+	public void registUser(String username, Long age, String email, String password, String location, String[] roles, boolean isAdmin) {
+		userRepository.save(new User(username, age, email, passwordEncoder.encode(password), location, roles, isAdmin));
 	}
 	
 	public void addNewUser(User user) {

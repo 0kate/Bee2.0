@@ -60,6 +60,10 @@
 		            </form>
 		            <div class="dropdown-divider"></div>
 		            <form th:action="@{/bee/logout}" method="post"><input type="submit" class="dropdown-item" value="Logout"></form>
+		            <div th:if="${isAdmin}">
+		            	<div class="dropdown-divider"></div>
+		            	<a class="dropdown-item" href="/bee/admin">Admin</a>
+		            </div>
 		          </div>
 		        </div>
 		      </div>

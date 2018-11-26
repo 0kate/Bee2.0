@@ -31,11 +31,12 @@ public class User {
 	private boolean lockout;
 	private boolean enabled;
 	private String[] roles;
+	private boolean admin;
 
 	@Relationship(type="FOLLOW", direction=Relationship.OUTGOING)
 	private Set<User> following = new HashSet<>();
 
-	public User(String name, Long age, String email, String password, String location, String[] roles) {
+	public User(String name, Long age, String email, String password, String location, String[] roles, boolean admin) {
 		setName(name);
 		setAge(age);
 		setEmail(email);
@@ -45,6 +46,7 @@ public class User {
 		setLockout(false);
 		setEnabled(true);
 		setRoles(roles);
+		setAdmin(admin);
 	}
 	
 	public boolean noFollowing() {
