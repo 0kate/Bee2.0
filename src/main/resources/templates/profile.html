@@ -1,31 +1,149 @@
 <!DOCTYPE html>
 <html xmlns:th="www.thymleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 </head>
+
 <body>
-	<h1>Profile</h1>
-	<div th:object="${targetUser}">
-		<p th:text="'Id : ' + *{id}"></p>
-		<p th:text="'Username : ' + *{name}"></p>
-		<p th:text="'Age : ' + *{age}"></p>
-		<p th:text="'Location : ' + *{location}"></p>
-	</div>
-	<form th:action="@{/bee/follow}" method="get">
-		<input type="hidden" name="fromuser" th:value="${user.name}" />
-		<input type="hidden" name="touser" th:value="${targetUser.name}" />
-		<div th:switch="${following}">
-			<p th:case=true>
-				<input type="hidden" name="release" value="false" />
-				<input type="submit" value="Release" />
-			</p>
-			<p th:case=false>
-				<input type="submit" value="Follow" />
-			</p>
-		</div>
-	</form>
-	<a href="/bee/top">Top</a>
-	<a href="javascript:history.back()">Back</a>
+  <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5">
+          <a class="navbar-brand" href="/bee/top">
+            <i class="fa d-inline fa-lg fa-stop-circle"></i>
+            <b>Bee<br></b>
+          </a>
+          <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar16">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="col-md-3">
+          <form class="form-inline float-right" th:action="@{/bee/find}" method="get" style="">
+            <div class="input-group">
+              <input type="text" class="form-control" id="inlineFormInputGroup" name="username" placeholder="Search">
+              <div class="input-group-append"><button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button></div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-4">
+          <div class="collapse navbar-collapse" id="navbar16" style="">
+            <ul class="navbar-nav">
+              <li class="nav-item"> <a class="nav-link" href="#">Features</a> </li>
+              <li class="nav-item"> <a class="nav-link" href="#">Pricing</a> </li>
+              <li class="nav-item"> <a class="nav-link" href="#">About</a> </li>
+              <li class="nav-item"> <a class="nav-link" href="#">FAQ</a> </li>
+            </ul>
+            <div class="btn-group">
+              <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Menu </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Profile</a>
+                <div class="dropdown-divider"></div>
+                <form th:action="@{/bee/setting}" method="get">
+                  <input type="hidden" name="username" th:value="${user.name}">
+                  <input type="submit" class="dropdown-item" value="Setting">
+                </form>
+                <div class="dropdown-divider"></div>
+                <form th:action="@{/bee/logout}" method="post"><input type="submit" class="dropdown-item" value="Logout"></form>
+                <div th:if="${isAdmin}">
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/bee/admin">Admin</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="py-1">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-5">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="card" draggable="true">
+            <div class="card-body text-center">
+              <h5 class="card-title"><b>Title</b></h5>
+              <img class="img-fluid rounded-circle" src="https://static.pingendo.com/img-placeholder-3.svg"><hr />
+              <div class="card-subtitle my-2">
+                <form th:action="@{/bee/follow}" method="get">
+                  <input type="hidden" name="fromuser" th:value="${user.name}">
+                  <input type="hidden" name="touser" th:value="${targetUser.name}">
+                  <div th:switch="${myself}">
+                  	<span th:case=false>
+		                  <div th:switch="${following}">
+		                    <span th:case=true>
+		                      <input type="hidden" name="release" value="false">
+		                      <button type="submit" class="btn btn-primary" disabled="disabled">Follow</button>
+		                      <button type="submit" class="btn btn-primary">Release</button>
+		                    </span>
+		                    <span th:case=false>
+													<button type="submit" class="btn btn-primary">Follow</button>
+		                      <button type="submit" class="btn btn-primary" disabled="disabled">Release</button>
+		                    </span>
+		                  </div>
+		                </span>
+		              </div>
+                </form>
+              </div>
+              <div class="card-text mx-5">
+	              <table th:object="${user}">
+	              	<tr><td>ID</td><td class="px-5"> : </td><td th:text="*{id}"></td></tr>
+	              	<tr><td>Name</td><td class="px-5"> : </td><td th:text="*{name}"></td></tr>
+	              	<tr><td>Age</td><td class="px-5"> : </td><td th:text="*{age}"></td></tr>
+	              	<tr><td>Location</td><td class="px-5"> : </td><td th:text=*{location}></td></tr>
+	              </table>
+	            </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="card" draggable="true">
+            <div class="card-body">
+              <h5 class="card-title"><b>Title</b></h5>
+              <h6 class="card-subtitle my-2 text-muted">Subtitle</h6>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card" draggable="true">
+            <div class="card-body">
+              <h5 class="card-title"><b>Title</b></h5>
+              <h6 class="card-subtitle my-2 text-muted">Subtitle</h6>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16"></pingendo>
 </body>
+
 </html>

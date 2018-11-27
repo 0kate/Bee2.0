@@ -79,15 +79,34 @@
 	  			<th>ID</th>
 	  			<th>Name</th>
 	  			<th>Age</th>
+	  			<th>Email</th>
+	  			<span th:if="${isAdmin}"><th>Password(Encoded)</th></span>
 	  			<th>Location</th>
+	  			<span th:if="${isAdmin}"><th>Failed</th></span>
+	  			<span th:if="${isAdmin}"><th>Lockout</th></span>
+	  			<span th:if="${!isAdmin}"><th>Status</th></span>
 	  		</tr>
 	  	</thead>
 	  	<tbody>
-	  		<tr th:each="user : ${userList}" th:object="${user}">
+	  		<tr th:each="u : ${userList}" th:object="${u}">
 	  			<td th:text="*{id}"></td>
 	  			<td><a th:text="*{name}" th:href="@{/bee/profile(username=*{name})}"></a></td>
 	  			<td th:text="*{age}"></td>
+	  			<td th:text="*{email}"></td>
+	  			<span th:if="${isAdmin}"><td th:text="*{password}"></td></span>
 	  			<td th:text="*{location}"></td>
+	  			<span th:if="${isAdmin}"><td th:text="*{failed}"></td></span>
+	  			<span th:if="${isAdmin}"><td th:text="*{lockout}"></td></span>
+	  			<span th:if="${!isAdmin}">
+	  				<span th:switch="${user.getFollowing().contains(u)}">
+	  					<span th:case=true>
+	  						<td class="text-primary">Follwing</td>
+	  					</span>
+	  					<span th:case=false>
+	  						<td class="text-secondary">not Following</td>
+	  					</span>
+	  				</span>
+	  			</span>
 	  		</tr>
 	  	</tbody>
 	  </table>

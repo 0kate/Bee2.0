@@ -19,11 +19,13 @@ public class ProfileController {
 	
 	@RequestMapping(value="/bee/profile", method=RequestMethod.GET)
 	public String profilePage(@RequestParam("username") String username, Model model, Principal principal) {
-	    User user = userService.pickupUser(principal);
-	    User targetUser = userService.findByName(username);
+	  User user = userService.pickupUser(principal);
+	  User targetUser = userService.findByName(username);
 	    
-	    model.addAttribute("user", user);
+	  model.addAttribute("user", user);
+	  model.addAttribute("isAdmin", user.isAdmin());
 		model.addAttribute("targetUser", targetUser);
+		model.addAttribute("myself", user.equals(targetUser));
 		model.addAttribute("following", userService.isFollowing(user, targetUser));
 		
 		return "profile";
