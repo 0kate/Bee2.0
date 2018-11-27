@@ -64,6 +64,10 @@ public class UserService implements UserDetailsService {
 		return userRepository.findByName(name);
 	}
 	
+	public Collection<User> findAll() {
+		return userRepository.findAll();
+	}
+	
 	public Collection<User> findByNameLike(String name) {
 		return userRepository.findByNameContaining(name);
 	}
