@@ -1,5 +1,7 @@
 package com.example.bee2.entity;
 
+import java.util.Date;
+
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -18,11 +20,11 @@ public class Post {
 	private Long id;
 	private String title;
 	private String text;
-	private String date;
+	private Date date;
 	private String posted;
 	private String url;
 	
-	public Post(String title, String text, String date, String posted, String url) {
+	public Post(String title, String text, Date date, String posted, String url) {
 		this.title = title;
 		this.text = text;
 		this.date = date;

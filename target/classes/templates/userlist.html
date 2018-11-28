@@ -100,12 +100,12 @@
 	  				<td>
 	  					<div th:switch="*{lockout}">
   							<div th:case=true class="btn-group btn-group-toggle" data-toggle="buttons">
-  								<label class="btn btn-outline-primary"><input type="radio" name="options" id="option1" autocomplete="off" checked>True</label>
-  								<label class="btn btn-outline-primary"><input type="radio" name="options" id="option2" autocomplete="off">False</label>
+  								<label class="btn btn-outline-primary active"><input type="radio" name="options" autocomplete="off" checked>True</label>
+  								<label class="btn btn-outline-primary"><input type="radio" name="options" autocomplete="off">False</label>
   							</div>
   							<div th:case=false class="btn-group btn-group-toggle" data-toggle="buttons">
   								<label class="btn btn-outline-primary"><input type="radio" name="options" id="option1" autocomplete="off">True</label>
-  								<label class="btn btn-outline-primary"><input type="radio" name="options" id="option2" autocomplete="off" checked>False</label>
+  								<label class="btn btn-outline-primary active"><input type="radio" name="options" id="option2" autocomplete="off" checked>False</label>
   							</div>
 	  					</div>
 	  				</td>

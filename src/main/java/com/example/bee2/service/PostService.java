@@ -1,7 +1,8 @@
 package com.example.bee2.service;
 
-import java.util.Calendar;
+
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,16 +16,11 @@ public class PostService {
 	private PostRepository postRepository;
 	
 	public void addNewPost(String title, String text, String posted, String url) {
-		Post post = new Post(title, text, getDateStr(), posted, url);
+		Post post = new Post(title, text, new Date(), posted, url);
 		postRepository.save(post);
 	}
 	
-	public Collection<Post> getAllPost() {
+	public Collection<Post> findAll() {
 		return (Collection<Post>) postRepository.findAll();
-	}
-
-	private String getDateStr() {
-		Calendar cal = Calendar.getInstance();
-		return cal.get(Calendar.YEAR) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DATE);
 	}
 }

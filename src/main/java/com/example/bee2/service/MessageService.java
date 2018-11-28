@@ -1,5 +1,6 @@
 package com.example.bee2.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -25,6 +26,7 @@ public class MessageService {
 	
 	private String getDateStr() {
 	  Calendar cal = Calendar.getInstance();
-      return cal.get(Calendar.YEAR) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DATE);
-    }
+	  SimpleDateFormat sdf = new SimpleDateFormat("yyyy/mm/dd");
+	  return sdf.format(cal.getTime());
+  }
 }
