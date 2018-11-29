@@ -47,6 +47,10 @@
             <div class="btn-group">
               <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Menu </button>
               <div class="dropdown-menu">
+                <div th:if="${isAdmin}">
+                  <a class="dropdown-item" href="/bee/admin">Admin</a>
+                  <div class="dropdown-divider"></div>
+                </div>
                 <a class="dropdown-item" href="#">Profile</a>
                 <div class="dropdown-divider"></div>
                 <form th:action="@{/bee/setting}" method="get">
@@ -55,10 +59,6 @@
                 </form>
                 <div class="dropdown-divider"></div>
                 <form th:action="@{/bee/logout}" method="post"><input type="submit" class="dropdown-item" value="Logout"></form>
-                <div th:if="${isAdmin}">
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/bee/admin">Admin</a>
-                </div>
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@
         <div class="col-md-3">
           <div class="card" draggable="true">
             <div class="card-body text-center">
-              <h5 class="card-title"><b>Title</b></h5>
+              <h5 class="card-title"><b th:text="${targetUser.name}"></b></h5>
               <img class="img-fluid rounded-circle" src="https://static.pingendo.com/img-placeholder-3.svg"><hr />
               <div class="card-subtitle my-2">
                 <form th:action="@{/bee/follow}" method="get">
@@ -110,7 +110,6 @@
               <div class="card-text mx-5">
 	              <table th:object="${user}">
 	              	<tr><td>ID</td><td class="px-5"> : </td><td th:text="*{id}"></td></tr>
-	              	<tr><td>Name</td><td class="px-5"> : </td><td th:text="*{name}"></td></tr>
 	              	<tr><td>Age</td><td class="px-5"> : </td><td th:text="*{age}"></td></tr>
 	              	<tr><td>Location</td><td class="px-5"> : </td><td th:text=*{location}></td></tr>
 	              </table>
