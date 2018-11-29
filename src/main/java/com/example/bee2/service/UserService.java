@@ -52,7 +52,7 @@ public class UserService implements UserDetailsService {
 	  registUser(username, age, email, password, location, roles, true);
 	}
 	
-	public void registUser(String username, Long age, String email, String password, String location, String[] roles, boolean isAdmin) {
+	private void registUser(String username, Long age, String email, String password, String location, String[] roles, boolean isAdmin) {
 		userRepository.save(new User(username, age, email, passwordEncoder.encode(password), location, roles, isAdmin));
 	}
 	

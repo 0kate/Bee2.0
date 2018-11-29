@@ -1,10 +1,53 @@
 <!DOCTYPE html>
 <html xmlns:th="www.thymleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Auto Generate</title>
+	<meta charset="UTF-8">
+	<title>Auto Generate</title>
 </head>
-<body>
-
+<body onload="generateUser()">
+	<form th:action="@{/bee/autogenerate}" th:object="${registForm}" method="post" name="registForm">
+    <div class="form-group"> <label>Username</label> <input type="text" class="form-control" id="username" name="username" placeholder="Username"> </div>
+    <div class="form-group"> <label>Email</label> <input type="email" class="form-control" id="email" name="email" placeholder="Email"> </div>
+    <div class="form-group"> <label>Age</label> <input type="text" class="form-control" id="age" name="age" placeholder="Age"> </div>
+    <div class="form-group"> <label>Location</label> <input type="text" class="form-control" id="location" name="location" placeholder="Location"> </div>
+    <div class="form-group"> <label>Password</label> <input type="password" class="form-control" id="password" name="password" placeholder="Password"> </div>
+    <!-- <div class="form-group"> <label>Password(Confirmation)</label> <input type="password" class="form-control" placeholder="Password(Confirmation)"> </div>  -->
+    <div align="center"><button type="submit" class="btn btn-primary">Submit</button></div>
+  </form>
+  
+	<script>
+		function generateUser() {
+			var username = 'User' + getCookies('count');
+			
+			document.getElementById('username').value = username;
+			document.getElementById('email').value = username + '@bee.com';
+			document.getElementById('age').value = '20';
+			document.getElementById('location').value = 'Japan';
+			document.getElementById('password').value = 'password';
+			
+			document.forms['registForm'].submit();
+		}
+		
+		function getCookies(name) {
+			var result = null;
+			
+			var cookieName = name + '=';
+			var allcookeis = document.cookie;
+			
+			var position = allcookies.indexOf(cookieName);
+			if (position != -1) {
+				var startIndex = position + cookieName.length;
+				
+				var endIndex = allcookies.indexOf(';', startIndex);
+				if (endIndex == -1) {
+					endIndex = allcookies.length;
+				}
+				
+				result = decodeURIComponent(allcookies.substrign(startIndex, endIndex));
+			}
+			
+			return result;
+		}
+	</script>
 </body>
 </html>
