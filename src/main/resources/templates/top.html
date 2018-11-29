@@ -55,6 +55,10 @@
 		        <div class="btn-group">
 		          <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Menu </button>
 		          <div class="dropdown-menu">
+								<div th:if="${isAdmin}">
+            			<a class="dropdown-item" href="/bee/admin">Admin</a>
+		            	<div class="dropdown-divider"></div>
+            		</div>
 		            <a class="dropdown-item" href="#">Profile</a>
 		            <div class="dropdown-divider"></div>
 		            <form th:action="@{/bee/setting}" method="get">
@@ -63,10 +67,6 @@
 		            </form>
 		            <div class="dropdown-divider"></div>
 		            <form th:action="@{/bee/logout}" method="post"><input type="submit" class="dropdown-item" value="Logout"></form>
-		            <div th:if="${isAdmin}">
-		            	<div class="dropdown-divider"></div>
-            			<a class="dropdown-item" href="/bee/admin">Admin</a>
-            		</div>
           		</div>
         		</div>
       		</div>
@@ -113,17 +113,23 @@
           <div class="card">
             <div class="card-body">
               <form class="form-inline" th:action="@{/bee/post}" th:object="${postForm}" method="post">
-                <div class="form-group">
-                  <input type="text" class="form-control mx-1" id="inputmailinline" name="title" placeholder="Title"> 
-                </div>
-                <div class="form-group">
-                   <input type="text" class="form-control mx-1" id="inputpasswordinline" name="text" placeholder="Text" style="">
-                </div>
-                <div class="form-group">
-                 <button type="submit" class="btn btn-primary mx-2 ml-auto" style="">Post</button>
-              	</div>
+              	<div class="container">
+		             	<div class="row">
+		                <div class="form-group col-md-3">
+		                  <input type="text" class="form-control" name="title" placeholder="Title" /> 
+		                </div>
+		                <div class="form-group col-md-3">
+		                   <input type="text" class="form-control" name="text" placeholder="Text" />
+		                </div>
+		                <div class="form-group col-md-3">
+		                	<input type="text" class="form-control" name="url" placeholder="URL" />
+		                </div>
+		                <div class="form-group col-md-3">
+		                 <button type="submit" class="btn btn-primary btn-block">Post</button>
+		              	</div>
+		              </div>
+	              </div>
               </form>
-	            </div>
               <hr />
               <div class="row">
                 <div class="col-md-12">
@@ -140,12 +146,12 @@
                     </thead>
                     <tbody>
                       <tr th:each="post : ${postList}" th:object="${post}">
-                        <td th:text="*{id}"><a th:href="@{/post(id=*{id})}"></a></td>
-                        <td th:text="*{title}"></td>
-                        <td th:text="*{text}"></td>
-                        <td th:text="*{date}"></td>
-                        <td th:text="*{posted}"></td>
-                        <td th:utext="*{url}"></td>
+                        <td><a th:href="@{/bee/post(id=*{id})}" th:text="*{id}"></a></td>
+                        <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{title}></a></td>
+                        <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{text}></a></td>
+                        <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{date}></a></td>
+                        <td><a th:href="@{/bee/profile(username=*{posted})}" th:text=*{posted}></a></td>
+                        <td><a th:href="*{url}" th:text=*{url}></a></td>
                       </tr>
                     </tbody>
                   </table>
