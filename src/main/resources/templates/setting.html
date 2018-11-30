@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="www.thymleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Setting</title>
 </head>
 <body>
-
+	<form th:action="@{/bee/unsubscribe/request}" method="get">
+		<input type="submit" value="unsubscribe" />
+	</form>
+	<a href="/bee/top">Top</a>
 </body>
 </html>

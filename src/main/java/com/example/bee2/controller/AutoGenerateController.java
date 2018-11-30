@@ -1,5 +1,7 @@
 package com.example.bee2.controller;
 
+import java.util.Optional;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,11 +30,9 @@ public class AutoGenerateController {
 	@RequestMapping(value="/bee/autogenerate", method=RequestMethod.POST)
 	public String autogenerate(@CookieValue(name="userCount", required=false) String count, @ModelAttribute("registForm") RegistForm registForm, HttpServletResponse response) {
 		userService.registerUser(registForm.getUsername(), registForm.getAge(), registForm.getEmail(), registForm.getPassword(), registForm.getLocation());
-		if (count != null) {
-			count = Integer.toString(Integer.parseInt(count) + 1);
-		} else {
-			count = "0";
-		}
+		
+		Optional<String> countOptional = Optional.ofNullable(count);
+		count = countOptional.map(cnt -> Integer.toString(Integer.parseInt(cnt) + 1)).orElseGet(() -> "0");
 		
 		response.addCookie(new Cookie("userCount", count));
 		

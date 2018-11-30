@@ -25,7 +25,7 @@ public class FindController {
 	  User user = userUtility.pickupUser(principal);
 	  model.addAttribute("user", user);
 	  model.addAttribute("isAdmin", user.isAdmin());
-	  model.addAttribute("userList", userService.findByNameLike(username));
+	  model.addAttribute("userList", userService.findByNameContaining(username));
 	  return "userlist";
 	}
 }

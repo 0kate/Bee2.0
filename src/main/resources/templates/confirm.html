@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Confirm</title>
+</head>
+<body>
+	<div th:object="${user}">
+		<div th:text="*{id}"></div>
+		<div th:text="*{name}"></div>
+		<div th:text="*{age}"></div>
+		<div th:text="*{location}"></div>
+	</div>
+	
+	Unsubscribe?
+	<form th:action="@{/bee/unsubscribe/confirm}" method="get">
+		<input type="hidden" name="select" value="yes" />
+		<input type="submit" value="yes" />
+	</form>
+	<form th:action="@{/bee/unsubscribe/confirm}" method="get">
+		<input type="hidden" name="select" value="no" />
+		<input type="submit" value="no" />
+	</form>
+</body>
+</html>

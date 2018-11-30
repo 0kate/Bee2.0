@@ -59,6 +59,10 @@ public class UserService implements UserDetailsService {
 		userRepository.save(user);
 	}
 	
+	public void delete(User user) {
+		userRepository.delete(user);
+	}
+	
 	public User findByName(String name) {
 		return userRepository.findByName(name);
 	}
@@ -67,7 +71,7 @@ public class UserService implements UserDetailsService {
 		return userRepository.findAll();
 	}
 	
-	public Collection<User> findByNameLike(String name) {
+	public Collection<User> findByNameContaining(String name) {
 		return userRepository.findByNameContaining(name);
 	}
 	
@@ -75,9 +79,7 @@ public class UserService implements UserDetailsService {
 	  User from = userRepository.findByName(fromUserName);
 	  User to = userRepository.findByName(toUserName);
 	  
-	  if (from.noFollowing()) {
-	    from.createFollowingSet();
-	  }
+	  if (from.noFollowing()) from.createFollowingSet();
 	  
 	  from.getFollowing().add(to);
 	  userRepository.save(from);
@@ -102,11 +104,14 @@ public class UserService implements UserDetailsService {
 	}
 	
 	public void loginFailed(String username) {
-		User user = userRepository.findByName(username);
-		user.setFailed(user.getFailed() + 1L);
-		if (user.getFailed() >= 3) {
-			user.setLockout(true);
-		}
-		userRepository.save(user);
+		Optional<User> userOptional = Optional.ofNullable(userRepository.findByName(username));
+		
+		userOptional.ifPresent(user -> {
+			user.setFailed(user.getFailed() + 1L);
+			if (user.getFailed() >= 3) {
+				user.setLockout(true);
+			}
+			userRepository.save(user);
+		});
 	}
 }
