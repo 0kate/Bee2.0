@@ -24,8 +24,9 @@ public class AutoGenerateController {
 	private PostService postService;
 	
 	@RequestMapping(value="/bee/autogenerate/regist", method=RequestMethod.GET)
-	public String autogenerateUser(@RequestParam(name="userCount", required=false) String count) {
-		String nextPath = null;
+	public String autogenerateUser() {
+		String userName = "User" + Integer.toString(userService.findAll().size() + 1);
+		userService.registerUser(userName, 20L, userName + "@bee.com", "password", "Japan");
 		
 		if (StringUtils.isEmpty(count)) {
 			nextPath = "autogenerate";
