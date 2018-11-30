@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.bee2.form.PostForm;
 import com.example.bee2.service.PostService;
-import com.example.bee2.service.UserService;
+import com.example.bee2.utility.UserUtility;
 
 @Controller
 public class PostController {
 	@Autowired
-	private UserService userService;
+	private UserUtility userUtility;
 	@Autowired
 	private PostService postService;
 	
 	@RequestMapping(value="/bee/post", method=RequestMethod.POST)
 	public String post(@ModelAttribute PostForm postForm, Principal principal) {
-		postService.addNewPost(postForm.getTitle(), postForm.getText(), userService.pickupUser(principal).getName(), postForm.getUrl());
+		postService.addNewPost(postForm.getTitle(), postForm.getText(), userUtility.pickupUser(principal).getName(), postForm.getUrl());
 		return "redirect:/bee/top";
 	}
 }

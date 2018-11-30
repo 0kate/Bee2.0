@@ -1,6 +1,5 @@
 package com.example.bee2.service;
 
-import java.security.Principal;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -94,18 +93,6 @@ public class UserService implements UserDetailsService {
 	  userRepository.save(from);
 	  
 	  updatePrincipal(from);
-	}
-	
-	public Boolean isFollowing(User user1, User user2) {
-	  if (user1.noFollowing()) return false;
-	  return user1.getFollowing().contains(user2);
-	}
-	
-	public User pickupUser(Principal principal) {
-		Authentication auth = (Authentication)principal;
-		UserInfo user = (UserInfo) auth.getPrincipal();
-		
-		return user.getUser();
 	}
 	
 	public void updatePrincipal(User user) {

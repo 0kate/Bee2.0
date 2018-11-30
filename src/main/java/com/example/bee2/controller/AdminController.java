@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.bee2.entity.User;
 import com.example.bee2.service.UserService;
+import com.example.bee2.utility.UserUtility;
 
 @Controller
 public class AdminController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private UserUtility userUtility;
 	
 	@RequestMapping(value="/bee/admin", method=RequestMethod.GET)
 	public String adminPage() {
@@ -23,7 +26,7 @@ public class AdminController {
 	
 	@RequestMapping(value="/bee/admin/userlist", method=RequestMethod.GET)
 	public String adminUserList(Model model, Principal principal) {
-		User user = userService.pickupUser(principal);
+		User user = userUtility.pickupUser(principal);
 		model.addAttribute("user", user);
 		model.addAttribute("isAdmin", user.isAdmin());
 		model.addAttribute("userList", userService.findAll());

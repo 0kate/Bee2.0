@@ -15,20 +15,20 @@ import com.example.bee2.entity.User;
 import com.example.bee2.form.PostForm;
 import com.example.bee2.service.MessageService;
 import com.example.bee2.service.PostService;
-import com.example.bee2.service.UserService;
+import com.example.bee2.utility.UserUtility;
 
 @Controller
 public class TopController {
- @Autowired
- private UserService userService;
 	@Autowired
 	private PostService postService;
 	@Autowired
 	private MessageService messageService;
+	@Autowired
+	private UserUtility userUtility;
 	
 	@RequestMapping(value="/bee/top", method=RequestMethod.GET)
 	public String topPage(Model model, Principal principal) {
-	  User user = userService.pickupUser(principal);
+	  User user = userUtility.pickupUser(principal);
 	  List<Post> sortedPostList = getSortedPostList();
 	  
 		model.addAttribute("user", user);
