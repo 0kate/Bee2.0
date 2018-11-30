@@ -39,16 +39,22 @@ public class AutoGenerateController {
 	}
 	
 	@RequestMapping(value="/bee/autogenerate/follow", method=RequestMethod.GET)
-	public String autogenerateFollow(@RequestParam(name="fromUser", required=false) String fromUser, @RequestParam(name="toUser", required=false) String toUser) {
+	public String autogenerateFollow(@RequestParam(name="fromuser", required=false) String fromUser, @RequestParam(name="touser", required=false) String toUser) {
 		Random randGenerator = new Random();
 		
-		if (!StringUtils.isEmpty(fromUser) || !StringUtils.isEmpty(toUser)) {
-			 userService.follow(fromUser, toUser);
+		if (!StringUtils.isEmpty(fromUser) && !StringUtils.isEmpty(toUser)) {
+			 userService.followAuto(fromUser, toUser);
 		}
 		
-		String nextFromUser = "User" + (randGenerator.nextInt(100) + 1);
-		String nextToUser = "User" + (randGenerator.nextInt(100) + 1);
+		try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 		
-		return "redirect:/bee/autogenerate/follow?fromsuer=" + nextFromUser + "&touser=" + nextToUser;
+		String nextFromUser = "User" + (randGenerator.nextInt(165) + 1);
+		String nextToUser = "User" + (randGenerator.nextInt(165) + 1);
+		
+		return "redirect:/bee/autogenerate/follow?fromuser=" + nextFromUser + "&touser=" + nextToUser;
 	}
 }

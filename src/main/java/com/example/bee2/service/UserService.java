@@ -76,6 +76,8 @@ public class UserService implements UserDetailsService {
 	}
 	
 	public void follow(String fromUserName, String toUserName) {
+	  if (fromUserName.equals(toUserName)) return;
+	  
 	  User from = userRepository.findByName(fromUserName);
 	  User to = userRepository.findByName(toUserName);
 	  
@@ -85,6 +87,18 @@ public class UserService implements UserDetailsService {
 	  userRepository.save(from);
 	  
 	  updatePrincipal(from);
+	}
+	
+	public void followAuto(String fromUserName, String toUserName) {
+	  if (fromUserName.equals(toUserName)) return;
+	  
+	  User from = userRepository.findByName(fromUserName);
+      User to = userRepository.findByName(toUserName);
+      
+      if (from.noFollowing()) from.createFollowingSet();
+      
+      from.getFollowing().add(to);
+      userRepository.save(from);
 	}
 	
 	public void release(String fromUserName, String toUserName) {
