@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
-Built-By: kate
-Build-Jdk: 10.0.2
 Implementation-Title: Bee
 Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: 177010
 Implementation-Vendor-Id: com.example
+Build-Jdk: 1.8.0_162
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
  ot-starter-parent/Bee
 Created-By: Maven Integration for Eclipse

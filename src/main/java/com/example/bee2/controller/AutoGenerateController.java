@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.bee2.service.PostService;
 import com.example.bee2.service.UserService;
 
 @Controller
 public class AutoGenerateController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private PostService postService;
 	
 	@RequestMapping(value="/bee/autogenerate/regist", method=RequestMethod.GET)
 	public String autogenerateUser(@RequestParam(name="userCount", required=false) String count) {
@@ -29,32 +32,45 @@ public class AutoGenerateController {
 			nextPath = "redirect:/bee/autogenerate/regist?userCount=" + Integer.toString(Integer.parseInt(count) + 1);
 		}
 		
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
 		return nextPath;
 	}
 	
 	@RequestMapping(value="/bee/autogenerate/follow", method=RequestMethod.GET)
 	public String autogenerateFollow(@RequestParam(name="fromuser", required=false) String fromUser, @RequestParam(name="touser", required=false) String toUser) {
-		Random randGenerator = new Random();
+		if (!StringUtils.isEmpty(fromUser) && !StringUtils.isEmpty(toUser)) userService.followAuto(fromUser, toUser);
 		
-		if (!StringUtils.isEmpty(fromUser) && !StringUtils.isEmpty(toUser)) {
-			 userService.followAuto(fromUser, toUser);
-		}
+		int userNum = userService.findAll().size();
 		
-		try {
-          Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-		
-		String nextFromUser = "User" + (randGenerator.nextInt(165) + 1);
-		String nextToUser = "User" + (randGenerator.nextInt(165) + 1);
+		String nextFromUser = "User" + rangeRandom(1, userNum);
+		String nextToUser = "User" + rangeRandom(1, userNum);
 		
 		return "redirect:/bee/autogenerate/follow?fromuser=" + nextFromUser + "&touser=" + nextToUser;
+	}
+	
+	@RequestMapping(value="/bee/autogenerate/post", method=RequestMethod.GET)
+	public String autogeneratePost(@RequestParam(name="postCount", required=false) String count) {
+		int userNum = userService.findAll().size();
+		int postNum = postService.findAll().size();
+		
+		if (StringUtils.isEmpty(count)) {
+			count = Integer.toString(postNum + 1);
+		}
+		
+		String postedUser = "User" + rangeRandom(1, userNum);
+		
+		postService.addNewPost("Post" + count, "Auto generated", postedUser, "www.github.com/" + postedUser);
+		
+		return "redirect:/bee/autogenerate/post?postCount=" + Integer.toString(Integer.parseInt(count) + 1);
+	}
+	
+	private int rangeRandom(int start, int end) {
+		Random randGenerator = new Random();
+		
+		int rand;
+		do {
+			rand = randGenerator.nextInt(end) + 1;
+		} while (rand < start);
+		
+		return rand;
 	}
 }
