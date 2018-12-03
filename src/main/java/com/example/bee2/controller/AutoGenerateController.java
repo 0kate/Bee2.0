@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.bee2.entity.Post;
+import com.example.bee2.entity.User;
 import com.example.bee2.service.PostService;
 import com.example.bee2.service.UserService;
 
@@ -61,6 +63,21 @@ public class AutoGenerateController {
 		postService.addNewPost("Post" + count, "Auto generated", postedUser, "www.github.com/" + postedUser);
 		
 		return "redirect:/bee/autogenerate/post?postCount=" + Integer.toString(Integer.parseInt(count) + 1);
+	}
+	
+	@RequestMapping(value="/bee/autogenerate/offer", method=RequestMethod.GET)
+	public String autogenerateOffer(@RequestParam(name="username", required=false) String username, @RequestParam(name="postId", required=false) Long postId) {
+		if (!StringUtils.isEmpty(username) && postId != null) {
+			Post post = postService.findById(postId);
+			if (post != null) {
+				postService.offer(username,  postId);
+			}
+		}
+			
+		String nextUsername = "User" + rangeRandom(1, userService.findAll().size());
+		String nextPostId = Integer.toString(rangeRandom(1, Integer.parseInt(postService.searchMaxId().toString())));
+		
+		return "redirect:/bee/autogenerate/offer?username=" + nextUsername + "&postId=" + nextPostId; 
 	}
 	
 	private int rangeRandom(int start, int end) {

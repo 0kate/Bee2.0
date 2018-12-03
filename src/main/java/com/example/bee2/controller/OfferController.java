@@ -4,19 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.bee2.service.PostService;
-import com.example.bee2.service.UserService;
 
 @Controller
 public class OfferController {
 	@Autowired
-	private UserService userService;
-	@Autowired
-	private PostService postSerivce;
+	private PostService postService;
 	
 	@RequestMapping(value="/bee/offer", method=RequestMethod.GET)
-	public String offer(@RequestParam("user") String user, @RequestParam("post") String post) {
-		postService.offer(user, post);
+	public String offer(@RequestParam("user") String user, @RequestParam("postId") Long postId) {
+		postService.offer(user, postId);
+		
+		return "redirect:/bee/post?id=" + postId.toString();
 	}
 }
