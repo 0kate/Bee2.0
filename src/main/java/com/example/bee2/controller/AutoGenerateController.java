@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.bee2.entity.Post;
-import com.example.bee2.entity.User;
 import com.example.bee2.service.PostService;
 import com.example.bee2.service.UserService;
 
