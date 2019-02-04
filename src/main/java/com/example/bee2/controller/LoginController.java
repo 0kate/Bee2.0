@@ -14,4 +14,9 @@ public class LoginController {
 		if (error != null) model.addAttribute("error", true);
 		return "login";
 	}
+	
+	@RequestMapping(value="/error", method=RequestMethod.GET)
+	public String loginError() {
+		return "login";
+	}
 }

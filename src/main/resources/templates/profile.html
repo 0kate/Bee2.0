@@ -13,6 +13,15 @@
   <script src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
   <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  
+  <script>
+	  $(document).ready(function() {
+				$('#mypost-table').DataTable({
+					order: [],
+			  	responsive: true
+				});
+			});
+	</script>
 </head>
 
 <body>
@@ -85,14 +94,14 @@
           <div class="card" draggable="true">
             <div class="card-body text-center">
               <h5 class="card-title"><b th:text="${targetUser.name}"></b></h5>
-              <img class="img-fluid rounded-circle" src="https://static.pingendo.com/img-placeholder-3.svg"><hr />
+              <img class="img-fluid rounded-circle" src="https://static.pingendo.com/img-placeholder-3.svg">
               <div class="card-subtitle my-2">
                 <form th:action="@{/bee/follow}" method="get">
                   <input type="hidden" name="fromuser" th:value="${user.name}">
                   <input type="hidden" name="touser" th:value="${targetUser.name}">
                   <div th:switch="${myself}">
                   	<span th:case=false>
-		                  <div th:switch="${following}">
+		                  <div th:switch="${isFollowing}">
 		                    <span th:case=true>
 		                      <input type="hidden" name="release" value="false">
 		                      <button type="submit" class="btn btn-primary" disabled="disabled">Follow</button>
@@ -108,11 +117,36 @@
                 </form>
               </div>
               <div class="card-text mx-5">
-	              <table th:object="${user}">
-	              	<tr><td>ID</td><td class="px-5"> : </td><td th:text="*{id}"></td></tr>
-	              	<tr><td>Age</td><td class="px-5"> : </td><td th:text="*{age}"></td></tr>
-	              	<tr><td>Location</td><td class="px-5"> : </td><td th:text=*{location}></td></tr>
-	              </table>
+	              <div class="container my-4">
+	              	<div th:if="${myself}">
+		              	<div class="row">
+		              		<div class="col-md-6">
+			              		<h5 class="card-subtitle">Follower</h5>	
+			             		</div>
+			             		<div class="col-md-6">
+			             			<h5 class="card-subtitle">Following</h5>
+			             		</div>
+		             		</div>
+		              	<div class="row">
+		             			<div class="col-md-6">
+		             			<a class="my-1" th:href="@{/bee/follow/get(type=follower, name=*{name})}" th:text="${follower}"></a>
+		             		</div>
+		             		<div class="col-md-6">
+		             			<a class="my-1" th:href="@{/bee/follow/get(type=following, name=*{name})}" th:text="${following}"></a>
+		             		</div>
+		             	</div>
+		             </div>
+              	<hr />
+              	<div class="row">
+              		<div class="col-md-12">
+			              <table th:object="${user}">
+			              	<tr><td>ID</td><td class="px-5"> : </td><td th:text="*{id}"></td></tr>
+			              	<tr><td>Age</td><td class="px-5"> : </td><td th:text="*{age}"></td></tr>
+			              	<tr><td>Location</td><td class="px-5"> : </td><td th:text=*{location}></td></tr>
+			              </table>
+			             </div>
+		             </div>
+		            </div>
 	            </div>
             </div>
           </div>
@@ -120,11 +154,27 @@
         <div class="col-md-5">
           <div class="card" draggable="true">
             <div class="card-body">
-              <h5 class="card-title"><b>Title</b></h5>
-              <h6 class="card-subtitle my-2 text-muted">Subtitle</h6>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
+              <table id="mypost-table">
+              	<thead>
+              		<tr>
+              			<th>Id</th>
+                    <th>Title</th>
+                    <th>Text</th>
+                    <th>Date</th>
+                    <th>URL</th>
+                    <th>Delete</th>
+                  </tr>
+              	</thead>
+              	<tbody>
+	              	<tr th:each="post : ${mypostList}" th:object="${post}">
+	              		<td><a th:href="@{/bee/post(id=*{id})}" th:text="*{id}"></a></td>
+                    <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{title}></a></td>
+                    <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{text}></a></td>
+                    <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{date}></a></td>
+                    <td><a th:href="*{url}" th:text=*{url}></a></td>
+	              	</tr>
+	              </tbody>
+              </table>
             </div>
           </div>
         </div>

@@ -15,10 +15,13 @@ import com.example.bee2.entity.User;
 import com.example.bee2.form.PostForm;
 import com.example.bee2.service.MessageService;
 import com.example.bee2.service.PostService;
+import com.example.bee2.service.UserService;
 import com.example.bee2.utility.UserUtility;
 
 @Controller
 public class TopController {
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private PostService postService;
 	@Autowired
@@ -32,10 +35,13 @@ public class TopController {
 	  List<Post> sortedPostList = getSortedPostList();
 	  
 		model.addAttribute("user", user);
+		model.addAttribute("follower", userService.getFollowerCount(user.getName()));
+		model.addAttribute("following", userService.getFollowingCount(user.getName()));
 		model.addAttribute("isAdmin", user.isAdmin());
 		model.addAttribute("postList", sortedPostList);
 		model.addAttribute("postForm", new PostForm());
 		model.addAttribute("messageList", messageService.findByReciever(user.getName()));
+		model.addAttribute("maybeFriends", userService.getMaybeFriends(user.getName()));
 		
 		return "top";
 	}

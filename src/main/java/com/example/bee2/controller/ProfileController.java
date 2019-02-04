@@ -29,7 +29,9 @@ public class ProfileController {
 	  model.addAttribute("isAdmin", user.isAdmin());
 		model.addAttribute("targetUser", targetUser);
 		model.addAttribute("myself", user.equals(targetUser));
-		model.addAttribute("following", userUtility.isFollowing(user, targetUser));
+		model.addAttribute("isFollowing", userUtility.isFollowing(user, targetUser));
+		model.addAttribute("follower", userService.getFollowerCount(user.getName()));
+		model.addAttribute("following", userService.getFollowingCount(user.getName()));
 		
 		return "profile";
 	}

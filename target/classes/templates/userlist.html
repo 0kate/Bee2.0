@@ -98,16 +98,20 @@
 	  			<span th:if="${isAdmin}"><td th:text="*{failed}"></td></span>
 	  			<span th:if="${isAdmin}">
 	  				<td>
-	  					<div th:switch="*{lockout}">
-  							<div th:case=true class="btn-group btn-group-toggle" data-toggle="buttons">
-  								<label class="btn btn-outline-primary active"><input type="radio" name="options" autocomplete="off" checked>True</label>
-  								<label class="btn btn-outline-primary"><input type="radio" name="options" autocomplete="off">False</label>
-  							</div>
-  							<div th:case=false class="btn-group btn-group-toggle" data-toggle="buttons">
-  								<label class="btn btn-outline-primary"><input type="radio" name="options" id="option1" autocomplete="off">True</label>
-  								<label class="btn btn-outline-primary active"><input type="radio" name="options" id="option2" autocomplete="off" checked>False</label>
-  							</div>
-	  					</div>
+	  					<form th:action="@{/bee/lockout}" method="get">
+		  					<div th:switch="*{lockout}">
+	  							<div th:case=true>
+	  								<input type="hidden" name="type" value="unlock" />
+	  								<input type="hidden" name="username" th:value="*{name}" />
+	  								<button type="submit" class="btn btn-primary">unlock</button>
+	  							</div>
+	  							<div th:case=false>
+	  								<input type="hidden" name="type" value="lock" />
+	  								<input type="hidden" name="username" th:value="*{name}" />
+	  								<button type="submit" class="btn btn-primary">lock</button>
+	  							</div>
+		  					</div>
+		  				</form>
 	  				</td>
 	  			</span>
 	  			<span th:if="${!isAdmin}">

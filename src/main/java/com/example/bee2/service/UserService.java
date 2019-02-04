@@ -1,6 +1,7 @@
 package com.example.bee2.service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,46 @@ public class UserService implements UserDetailsService {
 	
 	public Collection<User> findByNameContaining(String name) {
 		return userRepository.findByNameContaining(name);
+	}
+	
+	public Collection<User> getMaybeFriends(String name) {
+		List<User> maybeFriends = (List<User>) userRepository.getMaybeFriends(name);
+		List<User> followings = (List<User>) userRepository.getFollowings(name);
+		
+		for (User user : followings) {
+			maybeFriends.remove(user);
+		}
+
+		return maybeFriends;
+	}
+	
+	public Collection<User> getFollowers(String name) {
+		return userRepository.getFollowers(name);
+	}
+	
+	public Collection<User> getFollowings(String name) {
+		return userRepository.getFollowings(name);
+	}
+	
+	public int getFollowerCount(String name) {
+		return userRepository.getFollowerCount(name);
+	}
+	
+	public int getFollowingCount(String name) {
+		return userRepository.getFollowingCount(name);
+	}
+	
+	public void unlock(String name) {
+		User user = userRepository.findByName(name);
+		user.setLockout(false);
+		user.setFailed(0L);
+		userRepository.save(user);
+	}
+	
+	public void lock(String name) {
+		User user = userRepository.findByName(name);
+		user.setLockout(true);
+		userRepository.save(user);
 	}
 	
 	public void follow(String fromUserName, String toUserName) {
