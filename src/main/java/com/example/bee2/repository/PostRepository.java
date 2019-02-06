@@ -13,7 +13,8 @@ import com.example.bee2.entity.Post;
 public interface PostRepository extends Neo4jRepository<Post, Long> {
 	public List<Post> findAll();
 	public Optional<Post> findById(Long id);
-	public Post findByPosted(String Posted);
+	public void deleteById(Long id);
+	public List<Post> findByPosted(String Posted);
 	public Post findByTitle(String title);
 	public Post findByTitleLike(String title);
 	

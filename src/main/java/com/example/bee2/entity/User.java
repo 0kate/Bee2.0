@@ -28,13 +28,14 @@ public class User {
 	private Long failed;
 	private boolean lockout;
 	private boolean enabled;
+	private String imagePath;
 	private String[] roles;
 	private boolean admin;
 
 	@Relationship(type="FOLLOW", direction=Relationship.OUTGOING)
 	private Set<User> following = new HashSet<>();
 
-	public User(String name, Long age, String email, String password, String location, String[] roles, boolean admin) {
+	public User(String name, Long age, String email, String password, String location, String imagePath, String[] roles, boolean admin) {
 		setName(name);
 		setAge(age);
 		setEmail(email);
@@ -43,6 +44,7 @@ public class User {
 		setFailed(0L);
 		setLockout(false);
 		setEnabled(true);
+		setImagePath(imagePath);
 		setRoles(roles);
 		setAdmin(admin);
 	}

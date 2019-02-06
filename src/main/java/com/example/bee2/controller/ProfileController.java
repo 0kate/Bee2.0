@@ -32,6 +32,7 @@ public class ProfileController {
 		model.addAttribute("isFollowing", userUtility.isFollowing(user, targetUser));
 		model.addAttribute("follower", userService.getFollowerCount(user.getName()));
 		model.addAttribute("following", userService.getFollowingCount(user.getName()));
+		model.addAttribute("mypostList", userService.findByPosted(user.getName()));
 		
 		return "profile";
 	}

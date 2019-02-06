@@ -25,6 +25,10 @@ public class PostService {
 		postRepository.save(post);
 	}
 	
+	public void deletePost(Long id) {
+		postRepository.deleteById(id);
+	}
+	
 	public Collection<Post> findAll() {
 		return (Collection<Post>) postRepository.findAll();
 	}

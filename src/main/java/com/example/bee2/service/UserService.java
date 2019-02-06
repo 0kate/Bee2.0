@@ -17,14 +17,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.example.bee2.entity.Post;
 import com.example.bee2.entity.User;
 import com.example.bee2.entity.UserInfo;
+import com.example.bee2.repository.PostRepository;
 import com.example.bee2.repository.UserRepository;
 
 @Service
 public class UserService implements UserDetailsService {
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private PostRepository postRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
@@ -53,7 +57,7 @@ public class UserService implements UserDetailsService {
 	}
 	
 	private void registUser(String username, Long age, String email, String password, String location, String[] roles, boolean isAdmin) {
-		userRepository.save(new User(username, age, email, passwordEncoder.encode(password), location, roles, isAdmin));
+		userRepository.save(new User(username, age, email, passwordEncoder.encode(password), location, "/assets/profile_image/default_image.svg", roles, isAdmin));
 	}
 	
 	public void addNewUser(User user) {
@@ -101,6 +105,10 @@ public class UserService implements UserDetailsService {
 	
 	public int getFollowingCount(String name) {
 		return userRepository.getFollowingCount(name);
+	}
+	
+	public Collection<Post> findByPosted(String name) {
+		return postRepository.findByPosted(name);
 	}
 	
 	public void unlock(String name) {
