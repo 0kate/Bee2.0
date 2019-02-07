@@ -27,7 +27,7 @@ public class AutoGenerateController {
 	public String autogenerateUser() {
 		String userName = "User" + Integer.toString(userService.findAll().size() + 1);
 		userService.registerUser(userName, 20L, userName + "@bee.com", "password", "Japan");
-		
+		/*
 		if (StringUtils.isEmpty(count)) {
 			nextPath = "autogenerate";
 		} else {
@@ -46,6 +46,8 @@ public class AutoGenerateController {
 		}
 		
 		return nextPath;
+		*/
+		return "";
 	}
 	
 	@RequestMapping(value="/bee/autogenerate/follow", method=RequestMethod.GET)
