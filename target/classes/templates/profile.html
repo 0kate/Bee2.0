@@ -94,7 +94,10 @@
           <div class="card" draggable="true">
             <div class="card-body text-center">
               <h5 class="card-title"><b th:text="${targetUser.name}"></b></h5>
-              <img class="img-fluid rounded-circle" th:src="${user.imagePath}" style="width: 200%; height: 200%;">
+              <div th:switch="${myself}">
+              		<div th:case=true><a th:href="@{/bee/profile/image/select}"><img class="img-fluid rounded-circle" th:src="${user.imagePath}" width="300" height="300"></a></div>
+              		<div th:case=false><img class="img-fluid rounded-circle" th:src="${targetUser.imagePath}" width="300" height="300"></div>
+              </div>
               <div class="card-subtitle my-2">
                 <form th:action="@{/bee/follow}" method="get">
                   <input type="hidden" name="fromuser" th:value="${user.name}">
@@ -129,10 +132,10 @@
 		             		</div>
 		              	<div class="row">
 		             			<div class="col-md-6">
-		             			<a class="my-1" th:href="@{/bee/follow/get(type=follower, name=*{name})}" th:text="${follower}"></a>
+		             			<a class="my-1" th:href="@{/bee/follow/get(type=follower, name=${user.name})}" th:text="${follower}"></a>
 		             		</div>
 		             		<div class="col-md-6">
-		             			<a class="my-1" th:href="@{/bee/follow/get(type=following, name=*{name})}" th:text="${following}"></a>
+		             			<a class="my-1" th:href="@{/bee/follow/get(type=following, name=${user.name})}" th:text="${following}"></a>
 		             		</div>
 		             	</div>
 		             </div>
@@ -190,6 +193,27 @@
               <a href="#" class="card-link">Card link</a>
               <a href="#" class="card-link">Another link</a>
             </div>
+          </div>
+          <div class="card my-2">
+          	<div class="card-header">
+          		Maybe
+          	</div>
+          	<div class="card-body">
+          		<div class="col-tx-12 text-left">
+          			<ul class="media-list">
+          				<li class="media" th:each="user : ${maybeFriends}" th:object="${user}">
+          					<div class="media-body">
+          						<div class="container">
+          							<div class="row">
+	          							<div class="col-md-6"><img class="img-fluid d-block w-75 m-1 rounded-circle" th:src="*{imagePath}" /></div>
+	          							<div class="col-md-6"><h5 class="my-4"><a th:href="@{/bee/profile(username=*{name})}" th:text="*{name}"></a></h5></div>
+	          						</div>
+          						</div>
+          					</div>
+          				</li>
+          			</ul>
+          		</div>
+          	</div>
           </div>
         </div>
       </div>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html th:xmlns="www.thymleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Error</title>
+<!-- <meta http-equiv="refresh" content="0;url=http://localhost:8080/bee/login">  -->
+</head>
+<body>
+	<h1 th:text="${status} + ' ' + ${error}"></h1>
+	<p th:text=${exception}></p>
+</body>
+</html>

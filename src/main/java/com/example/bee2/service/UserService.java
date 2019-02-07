@@ -160,6 +160,12 @@ public class UserService implements UserDetailsService {
 	  updatePrincipal(from);
 	}
 	
+	public void updateProfileImage(User user, String filePath) {
+		user.setImagePath(filePath);
+		userRepository.save(user);
+		updatePrincipal(user);
+	}
+	
 	public void updatePrincipal(User user) {
 	  UserInfo userInfo = new UserInfo(user, getAuthorities(user));
 	  Authentication auth = new UsernamePasswordAuthenticationToken(userInfo, userInfo.getPassword(), userInfo.getAuthorities());

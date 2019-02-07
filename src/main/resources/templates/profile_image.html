@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Profile Image</title>
+</head>
+<body>
+	<h1>Profile Image</h1>
+	<form th:action="@{/bee/profile/image}" enctype="multipart/form-data" method="post">
+		<input type="file" name="upload_file" />
+		<select name="file_type">
+			<option value=".jpg">jpg</option>
+			<option value=".png">png</option>
+		</select>
+		<button type="submit">change</button>
+	</form>
+</body>
+</html>

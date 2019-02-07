@@ -27,6 +27,7 @@ public class MessageController {
     model.addAttribute("user", user);
     model.addAttribute("isAdmin", user.isAdmin());
     model.addAttribute("messageForm", new MessageForm());
+    model.addAttribute("messageList", messageService.findByReciever(user.getName()));
     return "message";
   }
   
