@@ -8,7 +8,7 @@
 	<h1>PostDetails</h1>
 	<div th:object="${post}">
 		<p th:text="'id : ' + *{id}"></p>
-		<p th:text="'title : *{title}"></p>
+		<p th:text="'title : ' +  *{title}"></p>
 		<p th:text="'text : ' + *{text}"></p>
 		<p th:text="'posted : ' + *{posted}"></p>
 		<p th:text="'date : ' + *{date}"></p>

@@ -169,16 +169,31 @@
                   </tr>
               	</thead>
               	<tbody>
-	              	<tr th:each="post : ${mypostList}" th:object="${post}">
-	              		<form th:action="@{/bee/post/delete}" method="get">
-		              		<td><a th:href="@{/bee/post(id=*{id})}" th:text="*{id}"></a></td>
-	                    <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{title}></a></td>
-	                    <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{text}></a></td>
-	                    <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{date}></a></td>
-	                    <td><a th:href="*{url}" th:text=*{url}></a></td>
-	                 		<td><input type="hidden" name="postId" th:value="*{id}" /><button type="submit" class="btn btn-primary">delete</button></td>
-	                 	</form>
-	              	</tr>
+              		<div th:switch="${myself}">
+              			<div th:case=true>
+			              	<tr th:each="post : ${mypostList}" th:object="${post}">
+			              		<form th:action="@{/bee/post/delete}" method="get">
+				              		<td><a th:href="@{/bee/post(id=*{id})}" th:text="*{id}"></a></td>
+			                    <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{title}></a></td>
+			                    <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{text}></a></td>
+			                    <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{date}></a></td>
+			                    <td><a th:href="*{url}" th:text=*{url}></a></td>
+			                 		<td><input type="hidden" name="postId" th:value="*{id}" /><button type="submit" class="btn btn-primary">delete</button></td>
+			                 	</form>
+			              	</tr>
+			              </div>
+			              <div th:case=false>
+			              	<tr th:each="post : ${targetUserPostList}" th:object="${post}">
+			              		<form th:action="@{/bee/post/delete}" method="get">
+				              		<td><a th:href="@{/bee/post(id=*{id})}" th:text="*{id}"></a></td>
+			                    <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{title}></a></td>
+			                    <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{text}></a></td>
+			                    <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{date}></a></td>
+			                    <td><a th:href="*{url}" th:text=*{url}></a></td>
+			                 		<td><input type="hidden" name="postId" th:value="*{id}" /></td>
+			                 	</form>
+			              </div>
+		              </div>
 	              </tbody>
               </table>
             </div>
@@ -219,7 +234,6 @@
       </div>
     </div>
   </div>
-  <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16"></pingendo>
 </body>
 
 </html>

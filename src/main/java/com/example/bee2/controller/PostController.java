@@ -23,7 +23,7 @@ public class PostController {
 	private PostService postService;
 	
 	@RequestMapping(value="/bee/post", method=RequestMethod.GET)
-	public String postDetails(@RequestParam("postId") Long id, Model model) {
+	public String postDetails(@RequestParam("id") Long id, Model model) {
 		model.addAttribute("post", postService.findById(id));
 		
 		return "postdetails";

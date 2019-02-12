@@ -33,6 +33,7 @@ public class ProfileController {
 	  model.addAttribute("user", user);
 	  model.addAttribute("isAdmin", user.isAdmin());
 		model.addAttribute("targetUser", targetUser);
+		model.addAttribute("targetUserPostList", userService.findByPosted(targetUser.getName()));
 		model.addAttribute("myself", user.equals(targetUser));
 		model.addAttribute("isFollowing", userUtility.isFollowing(user, targetUser));
 		model.addAttribute("follower", userService.getFollowerCount(user.getName()));
