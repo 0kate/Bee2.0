@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymleaf.org">
+<html>
+
 <head>
-<meta charset="UTF-8">
-<title>PostDetails</title>
+  <meta charset="UTF-8">
+  <title>PostDetails</title>
 </head>
+
 <body>
-	<h1>PostDetails</h1>
-	<div th:object="${post}">
-		<p th:text="'id : ' + *{id}"></p>
-		<p th:text="'title : ' +  *{title}"></p>
-		<p th:text="'text : ' + *{text}"></p>
-		<p th:text="'posted : ' + *{posted}"></p>
-		<p th:text="'date : ' + *{date}"></p>
-		<p th:text="'URL : ' + *{url}"></p>
-	</div>
-	<a href="/bee/top">Top</a>
-	<a href="javascript:history.back();">Back</a>
+  <h1>PostDetails</h1>
+  <div th:object="${post}">
+    <p th:text="'id : ' + *{id}"></p>
+    <p th:text="'title : ' +  *{title}"></p>
+    <p th:text="'text : ' + *{text}"></p>
+    <p th:text="'posted : ' + *{posted}"></p>
+    <p th:text="'date : ' + *{date}"></p>
+    <p th:text="'URL : ' + *{url}"></p>
+    <form th:action="@{/bee/post/offer}" method="post">
+      <input type="hidden" th:value="*{id}" name="postId">
+      <button type="submit">offer</button>
+    </form>
+  </div>
+  <a href="/bee/top">Top</a>
+  <a href="javascript:history.back();">Back</a>
+  <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16"></pingendo>
 </body>
+
 </html>

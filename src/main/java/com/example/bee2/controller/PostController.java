@@ -41,4 +41,12 @@ public class PostController {
 		postService.deletePost(id);
 		return "redirect:/bee/profile?username=" + user.getName();
 	}
+	
+	@RequestMapping(value="/bee/post/offer", method=RequestMethod.POST)
+	public String offer(@RequestParam("postId") Long id, Principal principal) {
+		User user = userUtility.pickupUser(principal);
+		postService.offer(user.getName(), id);
+		
+		return "redirect:/bee/post?id=" + id;
+	}
 }
