@@ -55,4 +55,23 @@ public class PostService {
 		
 		postRepository.save(post);
 	}
+	
+	public Collection<User> getOfferedList(Long postId) {
+		return postRepository.getOfferedList(postId);
+	}
+	
+	public boolean isOffered(Long id, String username) {
+		User user = userRepository.findByName(username);
+		Collection<User> offeredList = postRepository.getOfferedList(id);
+		
+		for (User u : offeredList) {
+			if (u.getName().equals(user.getName())) return true;
+		}
+		
+		return false;
+	}
+	
+	public void offerDisabled(Long postId, String username) {
+		postRepository.offerDisabled(postId, username);
+	}
 }

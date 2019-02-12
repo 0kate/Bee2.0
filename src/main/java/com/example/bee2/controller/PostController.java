@@ -23,7 +23,11 @@ public class PostController {
 	private PostService postService;
 	
 	@RequestMapping(value="/bee/post", method=RequestMethod.GET)
-	public String postDetails(@RequestParam("id") Long id, Model model) {
+	public String postDetails(@RequestParam("id") Long id, Model model, Principal principal) {
+		User user = userUtility.pickupUser(principal);
+		
+		model.addAttribute("isOffered", postService.isOffered(id, user.getName()));
+		model.addAttribute("offeredList", postService.getOfferedList(id));
 		model.addAttribute("post", postService.findById(id));
 		
 		return "postdetails";
@@ -48,5 +52,22 @@ public class PostController {
 		postService.offer(user.getName(), id);
 		
 		return "redirect:/bee/post?id=" + id;
+	}
+	
+	@RequestMapping(value="/bee/post/offer/disable", method=RequestMethod.POST)
+	public String offerDisabled(@RequestParam("postId") Long id, Principal principal) {
+		User user = userUtility.pickupUser(principal);
+		postService.offerDisabled(id, user.getName());
+		
+		return "redirect:/bee/post?id=" + id;
+	}
+	
+	@RequestMapping(value="/bee/post/offer/list", method=RequestMethod.GET)
+	public String offeredList(@RequestParam("postId") Long id, Model model, Principal principal) {
+		User user = userUtility.pickupUser(principal);
+		model.addAttribute("user", user);
+	  model.addAttribute("isAdmin", user.isAdmin());
+		model.addAttribute("userList", postService.getOfferedList(id));
+		return "userlist";
 	}
 }

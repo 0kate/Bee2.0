@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.bee2.entity.User;
 import com.example.bee2.service.UserService;
+import com.example.bee2.utility.ImageUtility;
 import com.example.bee2.utility.UserUtility;
 
 @Controller
@@ -24,6 +25,8 @@ public class ProfileController {
 	private UserService userService;
 	@Autowired
 	private UserUtility userUtility;
+	@Autowired
+	private ImageUtility imageUtility;
 	
 	@RequestMapping(value="/bee/profile", method=RequestMethod.GET)
 	public String profilePage(@RequestParam("username") String username, Model model, Principal principal) {
