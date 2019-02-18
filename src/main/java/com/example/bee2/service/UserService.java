@@ -2,6 +2,7 @@ package com.example.bee2.service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ import com.example.bee2.repository.UserRepository;
 
 @Service
 public class UserService implements UserDetailsService {
+	private static final String[] USER_ROLES  = {"ROLE_USER"};
+	private static final String[] ADMIN_ROLES = {"ROLE_USER", "ROLE_ADMIN"};
+	
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -46,14 +50,18 @@ public class UserService implements UserDetailsService {
 		return AuthorityUtils.createAuthorityList(user.getRoles());
 	}
 	
-	public void registerUser(String username, Long age, String email, String password, String location) {
-	  String[] roles = {"ROLE_USER"};
-	  registUser(username, age, email, password, location, roles, false);
+	public boolean userExists(String username) {
+		User user = userRepository.findByName(username);
+		
+		return user == null;
 	}
 	
-	public void registerAdmin(String username, Long age, String email, String password, String location) {
-	  String[] roles = {"ROLE_USER", "ROLE_ADMIN"};
-	  registUser(username, age, email, password, location, roles, true);
+	public void registerUser(Map<String, String> userInformations) {
+	  registUser(userInformations.get("username"), Long.parseLong(userInformations.get("age")), userInformations.get("email"), userInformations.get("password"), userInformations.get("location"), USER_ROLES, false);
+	}
+	
+	public void registerAdmin(Map<String, String> userInformations) {
+		registUser(userInformations.get("username"), Long.parseLong(userInformations.get("age")), userInformations.get("email"), userInformations.get("password"), userInformations.get("location"), ADMIN_ROLES, true);
 	}
 	
 	private void registUser(String username, Long age, String email, String password, String location, String[] roles, boolean isAdmin) {
@@ -64,7 +72,7 @@ public class UserService implements UserDetailsService {
 		userRepository.save(user);
 	}
 	
-	public void delete(User user) {
+	public void deleteUser(User user) {
 		userRepository.delete(user);
 	}
 	

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.bee2.entity.User;
+import com.example.bee2.exception.PostNotFoundException;
 import com.example.bee2.form.PostForm;
 import com.example.bee2.service.PostService;
 import com.example.bee2.utility.UserUtility;
@@ -28,7 +29,11 @@ public class PostController {
 		
 		model.addAttribute("isOffered", postService.isOffered(id, user.getName()));
 		model.addAttribute("offeredList", postService.getOfferedList(id));
-		model.addAttribute("post", postService.findById(id));
+		
+		try {
+			model.addAttribute("post", postService.findById(id));
+		} catch (PostNotFoundException e) {
+		}
 		
 		return "postdetails";
 	}

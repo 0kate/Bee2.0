@@ -39,7 +39,7 @@ public class SettingController {
 		String nextPath = null;
 		switch (select) {
 			case "yes":
-				userService.delete(userUtility.pickupUser(principal));
+				userService.deleteUser(userUtility.pickupUser(principal));
 				nextPath = "redirect:/bee/login";
 				break;
 			case "no":

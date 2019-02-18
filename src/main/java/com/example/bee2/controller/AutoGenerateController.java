@@ -1,5 +1,7 @@
 package com.example.bee2.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.bee2.entity.Post;
+import com.example.bee2.exception.PostNotFoundException;
 import com.example.bee2.service.PostService;
 import com.example.bee2.service.UserService;
 
@@ -28,7 +31,15 @@ public class AutoGenerateController {
 			nextPath = "autogenerate";
 		} else {
 			String userName = "User" + count;
-			userService.registerUser(userName, 20L, userName + "@bee.com", "password", "Japan");
+			Long age = 20L;
+			Map<String, String> userInformations = new HashMap<>();
+			userInformations.put("username",  userName);
+			userInformations.put("age", age.toString());
+			userInformations.put("email",  userName + "@bee.com");
+			userInformations.put("password", "password");
+			userInformations.put("location", "Japan");
+			
+			userService.registerUser(userInformations);
 			
 			nextPath = "redirect:/bee/autogenerate/regist?userCount=" + Integer.toString(Integer.parseInt(count) + 1);
 		}
@@ -67,10 +78,11 @@ public class AutoGenerateController {
 	@RequestMapping(value="/bee/autogenerate/offer", method=RequestMethod.GET)
 	public String autogenerateOffer(@RequestParam(name="username", required=false) String username, @RequestParam(name="postId", required=false) Long postId) {
 		if (!StringUtils.isEmpty(username) && postId != null) {
-			Post post = postService.findById(postId);
-			if (post != null) {
+			try {
+				Post post = postService.findById(postId);
+			} catch (PostNotFoundException e) {
 				postService.offer(username,  postId);
-			}
+			}			
 		}
 			
 		String nextUsername = "User" + rangeRandom(1, userService.findAll().size());

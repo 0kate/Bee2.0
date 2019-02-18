@@ -25,8 +25,6 @@ public class ProfileController {
 	private UserService userService;
 	@Autowired
 	private UserUtility userUtility;
-	@Autowired
-	private ImageUtility imageUtility;
 	
 	@RequestMapping(value="/bee/profile", method=RequestMethod.GET)
 	public String profilePage(@RequestParam("username") String username, Model model, Principal principal) {

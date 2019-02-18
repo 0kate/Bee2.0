@@ -4,5 +4,5 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ImageUtility {
-	public MultiPartFile
+	// public MultiPartFile
 }

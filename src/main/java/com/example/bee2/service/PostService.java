@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.bee2.entity.Post;
 import com.example.bee2.entity.User;
+import com.example.bee2.exception.PostNotFoundException;
 import com.example.bee2.repository.PostRepository;
 import com.example.bee2.repository.UserRepository;
 
@@ -33,13 +34,10 @@ public class PostService {
 		return (Collection<Post>) postRepository.findAll();
 	}
 	
-	public Post findById(Long id) {
+	public Post findById(Long id) throws PostNotFoundException {
 		Optional<Post> postOptional = postRepository.findById(id);
-		if (postOptional.isPresent()) {
-			return postOptional.get();
-		} else {
-			return null;
-		}
+		postOptional.orElseThrow(() -> new PostNotFoundException());
+		return postOptional.get();
 	}
 	
 	public Long searchMaxId() {
@@ -49,7 +47,11 @@ public class PostService {
 	public void offer(String username, Long postId) {
 		User user = userRepository.findByName(username);
 		
-		Post post = findById(postId);
+		Post post = null;
+		try {
+			post = findById(postId);
+		} catch (PostNotFoundException e) {
+		}
 	
 		post.getOfferedUser().add(user);
 		
