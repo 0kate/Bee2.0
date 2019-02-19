@@ -7,6 +7,94 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
   <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css">
  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css">
+ 	
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+ 	
+ 	<script type="text/javascript">
+  	var userExists = false;
+  	var passwordIsMatch = false;
+  	
+  	$(function() {
+  		usernameInput = $('#usernameInput');
+  		usernameInput.on('input', function(event) {
+  			$.ajax({
+  				type: "GET",
+  				url: "http://localhost:8080/bee/ajax",
+  				data: { username: usernameInput.val() },
+  				dataType: "json",
+  				beforeSend: function(xhr, setting) {
+  											if (usernameInput.val() == "") {
+  												usernameInput.removeClass('is-valid');
+  												usernameInput.removeClass('is-invalid');
+  												return false;
+  											}	
+  				 						},
+  				success: function(data) {
+  										 if (data['result']) {
+  											 userExists = true;
+  											 switchInvalid('#usernameInput');
+  										 } else {
+  											 userExists = false;
+  											 switchValid('#usernameInput');
+  										 }
+									 },
+  				error: function() {
+  								 $('#userExistsMessage').html('error');
+								 }
+  			});
+  		});
+  	});
+  	
+  	$(function() {
+  		passwordInput = $('#passwordInput');
+  		passwordConfirmInput = $('#passwordConfirmInput');
+  		
+  		passwordConfirmInput.on('change', function(evnet) {
+  			if (passwordInput.val() != $(this).val()) {
+  				passwordIsMatch = false;
+  				switchInvalid('#passwordConfirmInput');
+  			} else {
+  				passwordIsMatch = true;
+  				switchValid('#passwordConfirmInput');
+  			}
+  		});
+  	})
+  	
+  	function registSubmit() {
+  		$('#registForm').submit(function() {
+  			var submitOk = true;
+  			
+  			if (userExists) submitOk = false;
+  			if (!passwordIsMatch) submitOk =  false;
+  			
+  			var inputFormsId = ['#usernameInput', '#emailInput', '#ageInput', '#locationInput', '#passwordInput', '#passwordConfirmInput'];
+  			for (id in inputFormsId) {
+  				if ($(id).val() == "") {
+  					switchInvalid(id);
+  					submitOk = false;
+  				} else {
+  					switchValid(id);
+  				}
+  			}
+  			
+  			if (!submitOk) return false;
+  		});
+  	}
+  	
+  	function switchValid(id) {
+  		inputForm = $(id);
+  		inputForm.removeClass('is-invalid');
+  		inputForm.addClass('is-valid');
+  	}
+  	
+  	function switchInvalid(id) {
+  		inputForm = $(id);
+  		inputForm.removeClass('is-valid');
+  		inputForm.addClass('is-invalid');
+  	}
+  </script>
 </head>
 
 <body>
@@ -26,20 +114,7 @@
       </div>
     </div>
   </nav>
-  <script>
-  	var inputComplete = true;
-  	
-  	$(function() {
-  		var $input = $('#username');
-  		$input.on('input', function(event) {
-  			$.get("localhost:8080/bee/userExists", {
-  				username: $('#username').val()
-  			}, function(data) {
-  				alert(data);
-  			});
-  		});
-  	});
-  </script>
+
   <div class="py-5">
     <div class="container">
       <div class="row">
@@ -48,15 +123,33 @@
             <div class="card-header">Create Account</div>
             <div class="card-body">
               <div class="col-md-12">
-                <form th:action="@{/bee/regist}" th:object="${registForm}" method="post" data-toggle="validator">
-                  <div class="form-group"> 
-                  	<div class="py-2"><label>Username</label> <input type="text" id="username" class="form-control" name="username" placeholder="Username" required title="requied fields" onInput="userExistsCheck()"><p id="userExistsMessage"></p></div>
-                  	<div class="py-2"><label>Email</label> <input type="email" class="form-control" name="email" placeholder="Email" required> </div>
-                  	<div class="py-2"><label>Age</label> <input type="text" class="form-control" name="age" placeholder="Age" required> </div>
-                  	<div class="py-2"><label>Location</label> <input type="text" class="form-control" name="location" placeholder="Location" required> </div>
-                  	<div class="py-2"></div><label>Password</label> <input type="password" class="form-control" name="password" placeholder="Password" required pattern="[A-Za-z0-9]{5,10}" minlength="5" title="password : min=5, max=10"> </div>
-                  <!-- <div class="form-group"> <label>Password(Confirmation)</label> <input type="password" class="form-control" placeholder="Password(Confirmation)"> </div>  -->
-                  <div align="center"><button type="submit" class="btn btn-primary">Submit</button></div>
+                <form id="registForm" th:action="@{/bee/regist}" th:object="${registForm}" method="post" data-toggle="validator">
+                 	<div class="py-2 form-gruop">
+                 		<label>Username</label>
+                 		<input type="text" id="usernameInput" class="form-control" name="username" placeholder="Username">
+                 	</div>
+                 	<div class="py-2 form-group">
+                 		<label>Email</label>
+                 		<input type="email" id="emailInput" class="form-control" name="email" placeholder="Email"> 
+                 	</div>
+                 	<div class="py-2 form-group">
+                 		<label>Age</label>
+                 		<input type="text" id="ageInput" class="form-control" name="age" placeholder="Age">
+                 	</div>
+                 	<div class="py-2 form-group">
+                 		<label>Location</label>
+                 		<input type="text" id="locationInput" class="form-control" name="location" placeholder="Location">
+                 	</div>
+                 	<div class="py-2 form-group">
+                 		<label>Password</label>
+                 		<input type="password" id="passwordInput" class="form-control" name="password" placeholder="Password" pattern="[A-Za-z0-9]{5,10}" minlength="5" title="password : min=5, max=10">
+                 	</div>
+                 	<div class="form-group">
+										<label>Password (Confirm)</label>
+										<input type="password" id="passwordConfirmInput" class="form-control" placeholder="Password (Confirm)">
+									</div>
+                 	<p></p>
+                 	<div align="center"><button type="submit" class="btn btn-primary" onclick="registSubmit()">Submit</button>
                 </form>
               </div>
             </div>
@@ -82,9 +175,6 @@
       </div>
     </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 
 </html>

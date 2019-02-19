@@ -53,7 +53,7 @@ public class UserService implements UserDetailsService {
 	public boolean userExists(String username) {
 		User user = userRepository.findByName(username);
 		
-		return user == null;
+		return user != null;
 	}
 	
 	public void registerUser(Map<String, String> userInformations) {
