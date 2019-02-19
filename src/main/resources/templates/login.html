@@ -30,14 +30,13 @@
   </script>
   <script>
   	$(function() {
-  		$('#passcheck').change(function() {
-  			if ($(this).prop('checked')) {
-  				$('#password').attr('type', 'text');
-  			} else {
-  				$('#password').attr('type', 'password');
-  			}
-  		});
-  	});
+			var masked = false;
+			$('#passcheck').on('click', function(event) {
+				$(this).attr('type', masked ? 'text' : 'password');
+				masked = !masked; 
+		 	});
+			return false;
+		});
   </script>
 </head>
 
@@ -75,8 +74,10 @@
             </div>
             <div class="form-group">
             	<label class="text-light">Password</label>
-            	<input type="password" id="password" class="form-control" name="password" placeholder="Password" /> 
-            	<input type="checkbox" id="passcheck" />
+            	<div class="input-group">
+            		<input type="password" id="password" class="form-control" name="password" placeholder="Password" />
+            		<div class="input-group-append"><button type="button" id="passcheck" class="btn btn-primary">show</button></div>
+            	</div> 
             </div>
             <div class="row">
               <div class="col-md-5 ml-3"><button type="submit" class="btn btn-primary" v-on:click="show=!show">Login</button></div>

@@ -25,29 +25,21 @@ public class AutoGenerateController {
 	
 	@RequestMapping(value="/bee/autogenerate/regist", method=RequestMethod.GET)
 	public String autogenerateUser() {
-		String userName = "User" + Integer.toString(userService.findAll().size() + 1);
-		userService.registerUser(userName, 20L, userName + "@bee.com", "password", "Japan");
-		/*
-		if (StringUtils.isEmpty(count)) {
-			nextPath = "autogenerate";
-		} else {
-			String userName = "User" + count;
-			Long age = 20L;
-			Map<String, String> userInformations = new HashMap<>();
-			userInformations.put("username",  userName);
-			userInformations.put("age", age.toString());
-			userInformations.put("email",  userName + "@bee.com");
-			userInformations.put("password", "password");
-			userInformations.put("location", "Japan");
-			
-			userService.registerUser(userInformations);
-			
-			nextPath = "redirect:/bee/autogenerate/regist?userCount=" + Integer.toString(Integer.parseInt(count) + 1);
-		}
+	  int count = userService.findAll().size();
+	  
+	  String userName = "User" + Integer.toString(count + 1);
+	  Long age = 20L;
 		
-		return nextPath;
-		*/
-		return "";
+	  Map<String, String> userInformations = new HashMap<>();
+	  userInformations.put("username",  userName);
+	  userInformations.put("age", age.toString());
+	  userInformations.put("email",  userName + "@bee.com");
+	  userInformations.put("password", "password");
+	  userInformations.put("location", "Japan");
+			
+	  userService.registerUser(userInformations);
+		
+	  return "redirect:/bee/autogenerate/regist";
 	}
 	
 	@RequestMapping(value="/bee/autogenerate/follow", method=RequestMethod.GET)
