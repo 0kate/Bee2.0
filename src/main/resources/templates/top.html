@@ -17,6 +17,7 @@
   <script src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
   <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
   
+  <script src="/js/top-functions.js"></script>
 	<script>
   	$(document).ready(function() {
   		$('#wrapper').hide();
@@ -135,14 +136,14 @@
         <div class="col-md-6">
           <div class="card">
             <div class="card-body">
-              <form class="form-inline" th:action="@{/bee/post}" th:object="${postForm}" method="post">
+              <form id="postForm" class="form-inline" th:action="@{/bee/post}" th:object="${postForm}" method="post">
               	<div class="container">
 		             	<div class="row">
 		                <div class="form-group col-md-3">
-		                  <input type="text" class="form-control" name="title" placeholder="Title" /> 
+		                  <input type="text" id="titleInput" class="form-control" name="title" placeholder="Title" /> 
 		                </div>
 		                <div class="form-group col-md-3">
-		                   <input type="text" class="form-control" name="text" placeholder="Text" />
+		                   <input type="text" id="textInput" class="form-control" name="text" placeholder="Text" />
 		                </div>
 		                <div class="form-group col-md-3">
 		                	<input type="text" class="form-control" name="url" placeholder="URL" />
@@ -211,15 +212,17 @@
           	<div class="card-body">
           		<div class="col-tx-12 text-left">
           			<ul class="media-list">
-          				<li class="media" th:each="user : ${maybeFriends}" th:object="${user}">
-          					<div class="media-body">
-          						<div class="container">
-          							<div class="row">
-	          							<div class="col-md-6"><img class="img-fluid d-block w-75 m-1 rounded-circle" th:src="*{imagePath}" /></div>
-	          							<div class="col-md-6"><h5 class="my-4"><a th:href="@{/bee/profile(username=*{name})}" th:text="*{name}"></a></h5></div>
+          				<li class="media" th:each="maybeUser : ${maybeFriends}" th:object="${maybeUser}">
+          					<div th:if="${user.id} != *{id}">
+	          					<div class="media-body">
+	          						<div class="container">
+	          							<div class="row">
+		          							<div class="col-md-6"><img class="img-fluid d-block w-75 m-1 rounded-circle" th:src="*{imagePath}" /></div>
+		          							<div class="col-md-6"><h5 class="my-4"><a th:href="@{/bee/profile(username=*{name})}" th:text="*{name}"></a></h5></div>
+		          						</div>
 	          						</div>
-          						</div>
-          					</div>
+	          					</div>
+	          				</div>
           				</li>
           			</ul>
           		</div>

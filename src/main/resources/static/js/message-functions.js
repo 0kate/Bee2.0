@@ -1,3 +1,33 @@
+var userExists = false;
+$(function() {
+	toInput = $('#toInput');
+	toInput.on('input', function(event) {
+		$.ajax({
+			type: "GET",
+			url: "http://localhost:8080/bee/ajax",
+			data: { username: toInput.val() },
+			dataType: "json",
+			beforeSend: function(xhr, setting) {
+										if (toInput.val() == "") {
+											toInput.removeClass('is-valid');
+											toInput.removeClass('is-invalid');
+											return false;
+										}	
+			 						},
+			success: function(data) {
+									 if (!data['result']) {
+										 userExists = true;
+										 switchInvalid('#toInput');
+									 } else {
+										 userExists = false;
+										 switchValid('#toInput');
+									 }
+								 },
+			error: function() {}
+		});
+	});
+});
+
 $(function() {
 	$('#messageForm').submit(function(event) {
 		if ($('#toInput').val() == "") {
@@ -23,13 +53,6 @@ $(function() {
 });
 
 $(function() {
-	$('#toInput').on('input', function(event) {
-		$(this).removeClass('is-invalid');
-		if (!isEmpty('#titleInput') && !isEmpty('#textInput')) $(this).addClass('is-valid');
-	});
-});
-
-$(function() {
 	$('#titleInput').on('input', function(event) {
 		$(this).removeClass('is-invalid');
 		if (!isEmpty('#toInput') && !isEmpty('#textInput')) $(this).addClass('is-valid');
@@ -46,4 +69,16 @@ $(function() {
 function isEmpty(id) {
 	input = $(id);
 	return input.val() == "";
+}
+
+function switchValid(id) {
+	inputForm = $(id);
+	inputForm.removeClass('is-invalid');
+	inputForm.addClass('is-valid');
+}
+
+function switchInvalid(id) {
+	inputForm = $(id);
+	inputForm.removeClass('is-valid');
+	inputForm.addClass('is-invalid');
 }
