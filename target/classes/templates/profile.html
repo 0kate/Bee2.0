@@ -142,12 +142,23 @@
               	<hr />
               	<div class="row">
               		<div class="col-md-12">
-			              <table th:object="${user}">
-			              	<tr><td>ID</td><td class="px-5"> : </td><td th:text="*{id}"></td></tr>
-			              	<tr><td>Age</td><td class="px-5"> : </td><td th:text="*{age}"></td></tr>
-			              	<tr><td>Location</td><td class="px-5"> : </td><td th:text=*{location}></td></tr>
-			              </table>
+              			<div th:switch="${myself}">
+              				<div th:case=true>
+				              <table th:object="${user}">
+				              	<tr><td>ID</td><td class="px-5"> : </td><td th:text="*{id}"></td></tr>
+				              	<tr><td>Age</td><td class="px-5"> : </td><td th:text="*{age}"></td></tr>
+				              	<tr><td>Location</td><td class="px-5"> : </td><td th:text=*{location}></td></tr>
+				              </table>
+				            </div>
+				            <div th:case=false>
+				            	<table th:object="${targetUser}">
+				              		<tr><td>ID</td><td class="px-5"> : </td><td th:text="*{id}"></td></tr>
+				              		<tr><td>Age</td><td class="px-5"> : </td><td th:text="*{age}"></td></tr>
+				              		<tr><td>Location</td><td class="px-5"> : </td><td th:text=*{location}></td></tr>
+				              	</table>
+				            </div>
 			             </div>
+			           </div>
 		             </div>
 		            </div>
 	            </div>
