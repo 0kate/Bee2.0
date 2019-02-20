@@ -1,165 +1,165 @@
 <!DOCTYPE html>
 <html xmlns:th="www.thymleaf.org">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- PAGE settings -->
-  <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
-  <title>Restaurant Aquamarine - Pingendo template</title>
-  <meta name="description" content="Free Bootstrap 4 Pingendo Aquamarine template for restaurant and food">
-  <meta name="keywords" content="Pingendo restaurant food aquamarine free template bootstrap 4">
-  <!-- CSS dependencies -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="/css/aquamarine.css" type="text/css">
-  <!-- Script: Make my navbar transparent when the document is scrolled to top -->
-  <script src="/js/navbar-ontop.js"></script>
-  <!-- Script: Animated entrance -->
-  <script src="/js/animate-in.js"></script>
-  
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  
-  <script>
-  	$(function() {
-  		$('#wrapper').hide();
-  		$('#wrapper').fadeIn(2000);
-  	});
-  </script>
-  <script src="/js/login-functions.js"></script>
-</head>
-
-<body id='wrapper'>
-  <!-- Navbar -->
-  <!-- Cover -->
-  <nav class="navbar navbar-dark navbar-expand-md bg-primary">
-    <div class="container justify-content-center"> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar15">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse text-center justify-content-center" id="navbar15">
-        <ul class="navbar-nav">
-          <li class="nav-item mx-2"> <a class="nav-link" href="#">Products</a> </li>
-          <li class="nav-item mx-2"> <a class="nav-link" href="#">FAQ</a> </li>
-          <li class="nav-item mx-2"> <a class="nav-link navbar-brand mr-0 text-white" href="#"><i class="fa d-inline fa-lg fa-stop-circle-o"></i>
-              <b>Bee</b></a> </li>
-          <li class="nav-item mx-2"> <a class="nav-link" href="#">About us</a> </li>
-          <li class="nav-item mx-2"> <a class="nav-link" href="#">Contacts </a> </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
- 	
- 	
-  <div style="	background-image: url(&quot;/assets/restaurant/login-page.png&quot;);	background-position: left top;	background-size: 100%;	background-repeat: repeat;	box-shadow: 0px 0px 4px  black; filter: contrast(130%) saturate(150%);" class="align-items-center d-flex cover py-5 shadow-none">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-3 align-self-center text-lg-left text-center">
-          <h1 class="display-1 text-lg-left d-inline-flex text-info pb-3">Bee</h1>
-        </div>
-        <div id="loginForm" class="col-lg-5 p-3">
-          <form id="loginForm" class="" th:action="@{/bee/login}" method="post">
-            <div class="form-group"> <label class="text-light">Username</label> <input type="text" id="usernameInput" class="form-control" name="username" placeholder="Username">
-            </div>
-            <div class="form-group">
-            	<label class="text-light">Password</label>
-            	<div class="input-group">
-            		<input type="password" id="passwordInput" class="form-control" name="password" placeholder="Password" />
-            		<div class="input-group-append"><button type="button" id="passcheck" class="btn btn-primary"><i id="showIcon" class="fa fa-eye"></i></button></div>
-            	</div> 
-            </div>
-            <div class="row">
-              <div class="col-md-5 ml-3"><button type="submit" class="btn btn-primary">Login</button></div>
-              <div class="col-md-5 text-light mt-2 ml-3"><input type="checkbox"> remember me<br></div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-	</div>
-  <div style="height: 10px"></div>
-  <div class="py-5 text-center text-white h-100 align-items-center d-flex" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(https://static.pingendo.com/cover-bubble-dark.svg);  background-position: center center, center center;  background-size: cover, cover;  background-repeat: repeat, repeat;">
-    <div class="container py-5">
-      <div class="row">
-        <div class="mx-auto col-lg-8 col-md-10">
-          <h1 class="display-3 mb-4">A wonderful serenity</h1>
-          <p class="lead mb-5">Has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence.</p> <a href="/bee/regist" class="btn btn-lg btn-primary mx-1">Sign up<br></a> <a class="btn btn-lg mx-1 btn-outline-primary" href="#">Let's Go</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div style="height: 10px"></div>
-  <div class="py-5 text-center">
-    <div class="container">
-      <div class="row">
-        <div class="mx-auto col-md-12">
-          <h1 class="mb-3">A wonderful group of colleagues</h1>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-3 col-6 p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-1.svg" width="150" alt="Card image cap">
-          <h4> <b>J. W. Goethe</b> </h4>
-          <p class="mb-0">CEO and founder</p>
-        </div>
-        <div class="col-lg-3 col-6 p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-2.svg" width="150" alt="Card image cap">
-          <h4> <b>G. W. John</b> </h4>
-          <p class="mb-0">Co-founder</p>
-        </div>
-        <div class="col-lg-3 col-6 p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-3.svg" width="150">
-          <h4> <b>J. G. Wolf</b> </h4>
-          <p class="mb-0">CFO</p>
-        </div>
-        <div class="col-lg-3 col-6 p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-4.svg" width="150">
-          <h4> <b>A. Gang</b> </h4>
-          <p class="mb-0">CTO</p>
-        </div>
-      </div>
-      <div class="row d-flex justify-content-center">
-        <div class="col-lg-3 col-6 p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-4.svg" width="150" alt="Card image cap">
-          <h4> <b>G. W. John</b> </h4>
-          <p class="mb-0">Co-founder</p>
-        </div>
-        <div class="col-lg-3 col-6 p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-1.svg" width="150">
-          <h4> <b>J. G. Wolf</b> </h4>
-          <p class="mb-0">CFO</p>
-        </div>
-        <div class="col-lg-3 col-6 p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-4.svg" width="150">
-          <h4> <b>A. Gang</b> </h4>
-          <p class="mb-0">CTO</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="py-5 text-white" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(https://static.pingendo.com/cover-bubble-dark.svg);  background-position: center center, center center;  background-size: cover, cover;  background-repeat: repeat, repeat;">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 text-center align-self-center p-4">
-          <p class="mb-5"> <strong>Pingendo Inc.</strong> <br>795 Folsom Ave, Suite 600 <br>San Francisco, CA 94107 <br> <abbr title="Phone">P:</abbr> (123) 456-7890 </p>
-          <div class="row">
-            <div class="col-md-12 d-flex align-items-center justify-content-around"> <a href="#">
-                <i class="d-block fa fa-facebook-official text-light fa-lg mx-2"></i>
-              </a> <a href="#">
-                <i class="d-block fa fa-instagram text-light fa-lg mx-2"></i>
-              </a> <a href="#">
-                <i class="d-block fa fa-google-plus-official text-light fa-lg mx-2"></i>
-              </a> <a href="#">
-                <i class="d-block fa fa-pinterest-p text-light fa-lg mx-2"></i>
-              </a> <a href="#">
-                <i class="d-block fa fa-reddit text-light fa-lg mx-2"></i>
-              </a> <a href="#">
-                <i class="d-block fa fa-twitter text-light fa-lg ml-2"></i>
-              </a> </div>
-          </div>
-        </div>
-        <div class="col-md-6 p-0"> <iframe width="100%" height="350" src="https://maps.google.com/maps?hl=en&amp;q=New%20York&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed" scrolling="no" frameborder="0"></iframe></div>
-      </div>
-    </div>
-  </div>
- 
-  <!-- JavaScript dependencies -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  <!-- Script: Smooth scrolling between anchors in the same page -->
-  <script src="/js/smooth-scroll.js"></script>
-</body>
+	<head>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <!-- PAGE settings -->
+	  <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
+	  <title>Restaurant Aquamarine - Pingendo template</title>
+	  <meta name="description" content="Free Bootstrap 4 Pingendo Aquamarine template for restaurant and food">
+	  <meta name="keywords" content="Pingendo restaurant food aquamarine free template bootstrap 4">
+	  <!-- CSS dependencies -->
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+	  <link rel="stylesheet" href="/css/aquamarine.css" type="text/css">
+	  <!-- Script: Make my navbar transparent when the document is scrolled to top -->
+	  <script src="/js/navbar-ontop.js"></script>
+	  <!-- Script: Animated entrance -->
+	  <script src="/js/animate-in.js"></script>
+	  
+	  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	  
+	  <script>
+	  	$(function() {
+	  		$('#wrapper').hide();
+	  		$('#wrapper').fadeIn(2000);
+	  	});
+	  </script>
+	  <script src="/js/login-functions.js"></script>
+	</head>
+	
+	<body id='wrapper'>
+	  <!-- Navbar -->
+	  <!-- Cover -->
+	  <nav class="navbar navbar-dark navbar-expand-md bg-primary" style="position: fixed; width: 100%; z-index: 1;">
+	    <div class="container justify-content-center"> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar15">
+	        <span class="navbar-toggler-icon"></span>
+	      </button>
+	      <div class="collapse navbar-collapse text-center justify-content-center" id="navbar15">
+	        <ul class="navbar-nav">
+	          <li class="nav-item mx-2"> <a class="nav-link" href="#">Products</a> </li>
+	          <li class="nav-item mx-2"> <a class="nav-link" href="#">FAQ</a> </li>
+	          <li class="nav-item mx-2"> <a class="nav-link navbar-brand mr-0 text-white" href="#"><i class="fa d-inline fa-lg fa-stop-circle-o"></i>
+	              <b>Bee</b></a> </li>
+	          <li class="nav-item mx-2"> <a class="nav-link" href="#">About us</a> </li>
+	          <li class="nav-item mx-2"> <a class="nav-link" href="#">Contacts </a> </li>
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+	 	
+	 	
+	  <div style="	background-image: url(&quot;/assets/restaurant/login-page.png&quot;);	background-position: left top;	background-size: 100%; background-repeat: no-repeat; box-shadow: 0px 0px 4px  black; filter: contrast(130%) saturate(150%);" class="align-items-center d-flex cover py-5 shadow-none">
+	    <div class="container">
+	      <div class="row">
+	        <div class="col-lg-4"></div>
+	        <div class="col-lg-3 align-self-center text-lg-left text-center">
+	          <h1 class="display-1 text-lg-left d-inline-flex text-info pb-3">Bee</h1>
+	        </div>
+	        <div id="loginForm" class="col-lg-5 p-3">
+	          <form id="loginForm" class="" th:action="@{/bee/login}" method="post">
+	            <div class="form-group"> <label class="text-light">Username</label> <input type="text" id="usernameInput" class="form-control" name="username" placeholder="Username">
+	            </div>
+	            <div class="form-group">
+	            	<label class="text-light">Password</label>
+	            	<div class="input-group">
+	            		<input type="password" id="passwordInput" class="form-control" name="password" placeholder="Password" />
+	            		<div class="input-group-append"><button type="button" id="passcheck" class="btn btn-primary"><i id="showIcon" class="fa fa-eye"></i></button></div>
+	            	</div> 
+	            </div>
+	            <div class="row">
+	              <div class="col-md-5 ml-3"><button type="submit" class="btn btn-primary">Login</button></div>
+	              <div class="col-md-5 text-light mt-2 ml-3"><input type="checkbox"> remember me<br></div>
+	            </div>
+	          </form>
+	        </div>
+	      </div>
+	    </div>
+		</div>
+	  <div style="height: 10px"></div>
+	  <div class="py-5 text-center text-white h-100 align-items-center d-flex" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(https://static.pingendo.com/cover-bubble-dark.svg);  background-position: center center, center center;  background-size: cover, cover;  background-repeat: repeat, repeat;">
+	    <div class="container py-5">
+	      <div class="row">
+	        <div class="mx-auto col-lg-8 col-md-10">
+	          <h1 class="display-3 mb-4">A wonderful serenity</h1>
+	          <p class="lead mb-5">Has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence.</p> <a href="/bee/regist" class="btn btn-lg btn-primary mx-1">Sign up<br></a> <a class="btn btn-lg mx-1 btn-outline-primary" href="#">Let's Go</a>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	  <div style="height: 10px"></div>
+	  <div class="py-5 text-center">
+	    <div class="container">
+	      <div class="row">
+	        <div class="mx-auto col-md-12">
+	          <h1 class="mb-3">A wonderful group of colleagues</h1>
+	        </div>
+	      </div>
+	      <div class="row">
+	        <div class="col-lg-3 col-6 p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-1.svg" width="150" alt="Card image cap">
+	          <h4> <b>J. W. Goethe</b> </h4>
+	          <p class="mb-0">CEO and founder</p>
+	        </div>
+	        <div class="col-lg-3 col-6 p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-2.svg" width="150" alt="Card image cap">
+	          <h4> <b>G. W. John</b> </h4>
+	          <p class="mb-0">Co-founder</p>
+	        </div>
+	        <div class="col-lg-3 col-6 p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-3.svg" width="150">
+	          <h4> <b>J. G. Wolf</b> </h4>
+	          <p class="mb-0">CFO</p>
+	        </div>
+	        <div class="col-lg-3 col-6 p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-4.svg" width="150">
+	          <h4> <b>A. Gang</b> </h4>
+	          <p class="mb-0">CTO</p>
+	        </div>
+	      </div>
+	      <div class="row d-flex justify-content-center">
+	        <div class="col-lg-3 col-6 p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-4.svg" width="150" alt="Card image cap">
+	          <h4> <b>G. W. John</b> </h4>
+	          <p class="mb-0">Co-founder</p>
+	        </div>
+	        <div class="col-lg-3 col-6 p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-1.svg" width="150">
+	          <h4> <b>J. G. Wolf</b> </h4>
+	          <p class="mb-0">CFO</p>
+	        </div>
+	        <div class="col-lg-3 col-6 p-4"> <img class="img-fluid d-block mb-3 mx-auto rounded-circle" src="https://static.pingendo.com/img-placeholder-4.svg" width="150">
+	          <h4> <b>A. Gang</b> </h4>
+	          <p class="mb-0">CTO</p>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="py-5 text-white" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(https://static.pingendo.com/cover-bubble-dark.svg);  background-position: center center, center center;  background-size: cover, cover;  background-repeat: repeat, repeat;">
+	    <div class="container">
+	      <div class="row">
+	        <div class="col-md-6 text-center align-self-center p-4">
+	          <p class="mb-5"> <strong>Pingendo Inc.</strong> <br>795 Folsom Ave, Suite 600 <br>San Francisco, CA 94107 <br> <abbr title="Phone">P:</abbr> (123) 456-7890 </p>
+	          <div class="row">
+	            <div class="col-md-12 d-flex align-items-center justify-content-around"> <a href="#">
+	                <i class="d-block fa fa-facebook-official text-light fa-lg mx-2"></i>
+	              </a> <a href="#">
+	                <i class="d-block fa fa-instagram text-light fa-lg mx-2"></i>
+	              </a> <a href="#">
+	                <i class="d-block fa fa-google-plus-official text-light fa-lg mx-2"></i>
+	              </a> <a href="#">
+	                <i class="d-block fa fa-pinterest-p text-light fa-lg mx-2"></i>
+	              </a> <a href="#">
+	                <i class="d-block fa fa-reddit text-light fa-lg mx-2"></i>
+	              </a> <a href="#">
+	                <i class="d-block fa fa-twitter text-light fa-lg ml-2"></i>
+	              </a> </div>
+	          </div>
+	        </div>
+	        <div class="col-md-6 p-0"> <iframe width="100%" height="350" src="https://maps.google.com/maps?hl=en&amp;q=New%20York&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed" scrolling="no" frameborder="0"></iframe></div>
+	      </div>
+	    </div>
+	  </div>
+	 
+	  <!-- JavaScript dependencies -->
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	  <!-- Script: Smooth scrolling between anchors in the same page -->
+	  <script src="/js/smooth-scroll.js"></script>
+	</body>
 
 </html>

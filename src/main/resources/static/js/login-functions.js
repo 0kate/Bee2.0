@@ -18,8 +18,6 @@ $(function() {
 
 $(function() {
 	$('#loginForm').submit(function(event) {
-		var loginSuccess = true;
-		
 		if ($('#usernameInput').val() == "") {
 			$('#usernameInput').addClass('is-invalid');
 			alert("Error : Please enter username.");
@@ -29,25 +27,6 @@ $(function() {
 		if ($('#passwordInput').val() == "") {
 			$('#passwordInput').addClass('is-invalid');
 			alert("Error : Please enter password.");
-			return false;
-		}
-
-		$.ajax({
-			type: 'GET',
-			url: 'http://localhost:8080/bee/ajax',
-			data: { username: $('#usernameInput').val() },
-			dataType: 'json',
-			success: function(data) {
-				if (!data['result']) loginSuccess = false;
-			},
-			error: function() {
-				alert('ajax error');
-				loginSuccess = false;
-			}
-		});
-		
-		if (!loginSuccess) {
-			alert('Login Failed');
 			return false;
 		}
 	});

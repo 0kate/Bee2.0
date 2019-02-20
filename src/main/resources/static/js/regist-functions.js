@@ -6,7 +6,7 @@ $(function() {
 	usernameInput.on('input', function(event) {
 		$.ajax({
 			type: "GET",
-			url: "http://localhost:8080/bee/ajax",
+			url: "/bee/ajax",
 			data: { username: usernameInput.val() },
 			dataType: "json",
 			beforeSend: function(xhr, setting) {
