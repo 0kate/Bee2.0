@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public class LoginController {
 	@RequestMapping(value="/bee/login", method=RequestMethod.GET)
-	public String loginPage(@RequestParam(name="error", required=false) Boolean error, Model model) {
-		if (error != null) model.addAttribute("error", true);
+	public String loginPage() {
 		return "login";
 	}
 	

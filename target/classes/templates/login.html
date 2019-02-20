@@ -17,9 +17,6 @@
   <!-- Script: Animated entrance -->
   <script src="/js/animate-in.js"></script>
   
-  <!-- Script: Vue.js  -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-  
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   
   <script>
@@ -28,30 +25,7 @@
   		$('#wrapper').fadeIn(2000);
   	});
   </script>
-  <script>
-  	var masked = false;
-  	$(function() {
-<<<<<<< Updated upstream
-			var masked = false;
-			$('#passcheck').on('click', function(event) {
-				$(this).attr('type', masked ? 'text' : 'password');
-				masked = !masked; 
-		 	});
-			return false;
-		});
-=======
-  		$('#passcheck').on('click', function(event) {
-  			if (masked) {
-  				$('#password').attr('type', 'text');
-  				masked = !masked;
-  			} else {
-  				$('#password').attr('type', 'password');
-  				masked = !masked;
-  			}
-  		});
-  	});
->>>>>>> Stashed changes
-  </script>
+  <script src="/js/login-functions.js"></script>
 </head>
 
 <body id='wrapper'>
@@ -73,7 +47,8 @@
       </div>
     </div>
   </nav>
- 
+ 	
+ 	
   <div style="	background-image: url(&quot;/assets/restaurant/login-page.png&quot;);	background-position: left top;	background-size: 100%;	background-repeat: repeat;	box-shadow: 0px 0px 4px  black; filter: contrast(130%) saturate(150%);" class="align-items-center d-flex cover py-5 shadow-none">
     <div class="container">
       <div class="row">
@@ -82,32 +57,25 @@
           <h1 class="display-1 text-lg-left d-inline-flex text-info pb-3">Bee</h1>
         </div>
         <div id="loginForm" class="col-lg-5 p-3">
-          <form class="" th:action="@{/bee/login}" method="post" v-if="show">
-            <div class="form-group"> <label class="text-light">Username</label> <input type="text" class="form-control" name="username" placeholder="Username">
-              <div th:if="${error}"><small class="form-text text-danger" style="text-shadow: 0px 0px 4px black;">Login Failed<br></small></div>
+          <form id="loginForm" class="" th:action="@{/bee/login}" method="post">
+            <div class="form-group"> <label class="text-light">Username</label> <input type="text" id="usernameInput" class="form-control" name="username" placeholder="Username">
             </div>
             <div class="form-group">
             	<label class="text-light">Password</label>
             	<div class="input-group">
-<<<<<<< Updated upstream
-            		<input type="password" id="password" class="form-control" name="password" placeholder="Password" />
-            		<div class="input-group-append"><button type="button" id="passcheck" class="btn btn-primary">show</button></div>
+            		<input type="password" id="passwordInput" class="form-control" name="password" placeholder="Password" />
+            		<div class="input-group-append"><button type="button" id="passcheck" class="btn btn-primary"><i id="showIcon" class="fa fa-eye"></i></button></div>
             	</div> 
-=======
-	            	<input type="password" id="password" class="form-control" name="password" placeholder="Password" />
-	            	<div class="input-group-append"><button type="button" id="passcheck" class="btn btn-primary">show</button></div>
-	            </div>
->>>>>>> Stashed changes
             </div>
             <div class="row">
-              <div class="col-md-5 ml-3"><button type="submit" class="btn btn-primary" v-on:click="show=!show">Login</button></div>
+              <div class="col-md-5 ml-3"><button type="submit" class="btn btn-primary">Login</button></div>
               <div class="col-md-5 text-light mt-2 ml-3"><input type="checkbox"> remember me<br></div>
             </div>
           </form>
         </div>
       </div>
     </div>
-  </div>
+	</div>
   <div style="height: 10px"></div>
   <div class="py-5 text-center text-white h-100 align-items-center d-flex" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(https://static.pingendo.com/cover-bubble-dark.svg);  background-position: center center, center center;  background-size: cover, cover;  background-repeat: repeat, repeat;">
     <div class="container py-5">
