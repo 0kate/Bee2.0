@@ -24,7 +24,9 @@
 	  		$('#wrapper').fadeIn(2000);
 				$('#post-table').DataTable({
 					order: [],
-			  	responsive: true
+			  	responsive: true,
+			  	pagingType: "full",
+			  	pageLength: 5
 				});
 			});
 	  </script>
@@ -139,6 +141,81 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class="row py-2">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-body">
+								<form id="postForm" class="center-block" th:action="@{/bee/post}" th:object="${postForm}" method="post">
+									<div class="form-group"><input type="text" id="titleInput" class="form-control" name="title" placeholder="Title"></div>
+									<div class="form-group"><input type="text" id="textInput" class="form-control" name="text" placeholder="Text"></div>
+									<div class="form-group"><input type="text" class="form-control" name="url" placeholder="URL"></div>
+									<div class="form-group"><button type="submit" class="btn btn-primary">Post</button></div>
+								</form>
+								<hr />
+								<table id="post-table" class="table display nowrap">
+									<thead>
+                     <tr>
+                       <th>Title</th>
+                       <th>Text</th>
+                       <th>Date</th>
+                       <th>Posted</th>
+                       <th>URL</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <tr th:each="post : ${postList}" th:object="${post}">
+                       <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{title}></a></td>
+                       <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{text}></a></td>
+                       <td><a th:href="@{/bee/post(id=*{id})}" th:text=*{date}></a></td>
+                       <td><a th:href="@{/bee/profile(username=*{posted})}" th:text=*{posted}></a></td>
+                       <td><a th:href="*{url}" th:text=*{url}></a></td>
+                     </tr>
+                   </tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row py-2">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<a href="/bee/message">Message<span class="badge" style="" th:text="${messageList.size()}"></span></a>
+							</div>
+							<div class="card-body">
+                <ul class="media-list">
+                  <li class="media" th:each="message : ${messageList}" th:object="${message}">
+                    <div class="media-body">
+                      <div>
+												<h6><b th:text="*{title}"></b></h6>
+												<p th:text="*{text}"></p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+            	</div>
+						</div>
+					</div>
+				</div>
+				<div class="row py-2">
+					<div class="col-md-12">
+						<div class="card">
+	          	<div class="card-header">Maybe</div>
+	          	<div class="card-body">
+		         		<table align="left">
+		         			<tbody>
+	         					<tr th:each="maybeUser : ${maybeFriends}" th:object="${maybeUser}">
+	         						<div th:if="${user.id} != *{id}"> 
+	          						<td><img class="image-fluid w-50 rounded-circle" th:src="*{imagePath}"></td>
+	          						<td><h5 class="my-4"><a th:href="@{/bee/profile(username=*{name})}" th:text="*{name}"></a></h5></td>
+	          					</div>
+	          				</tr>
+	          			</tbody>
+	          		</table>
+	          	</div>
+	          </div>
+	      	</div>
 				</div>
 			</div>
 		</div>
