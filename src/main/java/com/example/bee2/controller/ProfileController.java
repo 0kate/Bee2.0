@@ -25,6 +25,8 @@ public class ProfileController {
 	private UserService userService;
 	@Autowired
 	private UserUtility userUtility;
+	@Autowired
+	private ImageUtility imageUtility;
 	
 	@RequestMapping(value="/bee/profile", method=RequestMethod.GET)
 	public String profilePage(@RequestParam("username") String username, Model model, Principal principal) {
@@ -65,7 +67,7 @@ public class ProfileController {
 		try {
 			File uploadFile = new File(filePath);
 			if (!uploadFile.exists()) uploadFile.createNewFile();
-			byte[] bytes = multipartFile.getBytes();
+			byte[] bytes = imageUtility.resizeImage(multipartFile.getBytes());
 			BufferedOutputStream uploadFileStream = new BufferedOutputStream(new FileOutputStream(uploadFile));
 			uploadFileStream.write(bytes);
 			uploadFileStream.close();

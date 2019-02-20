@@ -29,7 +29,9 @@
   	});
   </script>
   <script>
+  	var masked = false;
   	$(function() {
+<<<<<<< Updated upstream
 			var masked = false;
 			$('#passcheck').on('click', function(event) {
 				$(this).attr('type', masked ? 'text' : 'password');
@@ -37,6 +39,18 @@
 		 	});
 			return false;
 		});
+=======
+  		$('#passcheck').on('click', function(event) {
+  			if (masked) {
+  				$('#password').attr('type', 'text');
+  				masked = !masked;
+  			} else {
+  				$('#password').attr('type', 'password');
+  				masked = !masked;
+  			}
+  		});
+  	});
+>>>>>>> Stashed changes
   </script>
 </head>
 
@@ -75,9 +89,15 @@
             <div class="form-group">
             	<label class="text-light">Password</label>
             	<div class="input-group">
+<<<<<<< Updated upstream
             		<input type="password" id="password" class="form-control" name="password" placeholder="Password" />
             		<div class="input-group-append"><button type="button" id="passcheck" class="btn btn-primary">show</button></div>
             	</div> 
+=======
+	            	<input type="password" id="password" class="form-control" name="password" placeholder="Password" />
+	            	<div class="input-group-append"><button type="button" id="passcheck" class="btn btn-primary">show</button></div>
+	            </div>
+>>>>>>> Stashed changes
             </div>
             <div class="row">
               <div class="col-md-5 ml-3"><button type="submit" class="btn btn-primary" v-on:click="show=!show">Login</button></div>
