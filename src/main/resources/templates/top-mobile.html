@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymleaf.org">
+	<head>
+		<title>Bee Mobile</title>
+		<meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.1.3.css">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	  <link rel="stylesheet" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css">
+	  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+	  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	  
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	  
+	  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	  <script src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+	  <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+	  
+	  <script src="/js/top-functions.js"></script>
+		<script>
+	  	$(document).ready(function() {
+	  		$('#wrapper').hide();
+	  		$('#wrapper').fadeIn(2000);
+				$('#post-table').DataTable({
+					order: [],
+			  	responsive: true
+				});
+			});
+	  </script>
+	</head>
+	<body id="wrapper">
+		<nav class="navbar navbar-expand-md navbar-dark bg-primary" style="position: fixed; width: 100%; z-index: 1;">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-4">
+			     	<a class="navbar-brand" href="/bee/top">
+			       	<i class="fa d-inline fa-lg fa-stop-circle"></i>
+			       	<b>Bee<br></b>
+			     	</a>
+			     	<button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar16">
+			       	<span class="navbar-toggler-icon"></span>
+			     	</button>
+			    </div>
+			    <div class="col-md-4">
+						<form class="form-inline" th:action="@{/bee/find}" method="get" style="">
+			        <div class="input-group">
+			          <input type="text" class="form-control" id="inlineFormInputGroup" name="username" placeholder="Search">
+			          <div class="input-group-append"><button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button></div>
+			        </div>
+			      </form>
+			    </div>
+			    <div class="col-md-4">
+			    	<div class="collapse navbar-collapse" id="navbar16" style="">
+			       	<ul class="navbar-nav">
+			         	<li class="nav-item"> <a class="nav-link" href="#">Features</a> </li>
+			         	<li class="nav-item"> <a class="nav-link" href="#">Pricing</a> </li>
+			         	<li class="nav-item"> <a class="nav-link" href="#">About</a> </li>
+			         	<li class="nav-item"> <a class="nav-link" href="#">FAQ</a> </li>
+			       	</ul>
+			       	<div class="btn-group">
+			         	<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Menu </button>
+			         	<div class="dropdown-menu">
+									<div th:if="${isAdmin}">
+			         			<a class="dropdown-item" href="/bee/admin">Admin</a>
+			           		<div class="dropdown-divider"></div>
+		         			</div>
+			           	<a class="dropdown-item" th:href="@{/bee/profile(username=${user.name})}">Profile</a>
+			           	<div class="dropdown-divider"></div>
+			           	<form th:action="@{/bee/setting}" method="get">
+			             	<input type="hidden" name="username" th:value="${user.name}">
+			             	<input type="submit" class="dropdown-item" value="Setting">
+			           	</form>
+			           	<div class="dropdown-divider"></div>
+			           	<form th:action="@{/bee/logout}" method="post"><input type="submit" class="dropdown-item" value="Logout"></form>
+		       			</div>
+			     		</div>
+			   		</div>
+			   	</div>
+		   	</div>
+	  	</div>
+		</nav>
+		
+		<div class="py-5 text-center section-darkl" style="">
+			<div class="container py-4">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-body" th:object="${user}">
+								<div class="container">
+									<div class="row">
+										<div class="col-md-12"><h5 class="card-title text-center"><b th:text="*{name}"></b><br /></h5></div>
+									</div>
+									<div class="row">
+										<div class="col-md-12"><a th:href="@{/bee/profile(username=*{name})}"><img class="img-fluid d-block w-75 mx-auto m-3 rounded-circle" th:src="*{imagePath}" width="50" height="50"/></a></div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<table align="center">
+												<tbody>
+													<tr>
+														<td width="130">Follower</td>
+														<td width="130">Following</td>
+													</tr>
+													<tr>
+														<td><a class="my-1" th:href="@{/bee/follow/get(type=follower, name=*{name})}" th:text="${follower}"></a></td>
+														<td><a class="my-1" th:href="@{/bee/follow/get(type=following, name=*{name})}" th:text="${following}"></a></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<hr />
+									<div class="row">
+										<div class="col-md-12" style="">
+                  		<table align="center">
+                  			<tbody>
+                  				<tr>
+                  					<td width=100 th:text="'UserID'"></td>
+                  					<td width=100 th:text="' : '"></td>
+                  					<td width=100 th:text="*{id}"></td>
+                  				</tr>
+                  				<tr>
+                  					<td width=100 th:text="'Location'"></td>
+                  					<td width=100 th:text="' : '"></td>
+                  					<td width=100 th:text="*{location}"></td>
+                  				</tr>
+                  				<tr>
+                  					<td width=100 th:text="'Age'"></td>
+                  					<td width=100 th:text="' : '"></td>
+                  					<td width=100 th:text="*{age}"></td>
+                  				</tr>
+                  			</tbody>
+                  		</table>
+                  		<div align="center" class="py-2"><a class="card-link" th:href="@{/bee/profile(username=${user.name})}" />More<br /></a></div>
+                		</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
