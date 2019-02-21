@@ -148,8 +148,8 @@
 						<div class="card">
 							<div class="card-body">
 								<form id="postForm" class="center-block" th:action="@{/bee/post}" th:object="${postForm}" method="post">
-									<div class="form-group"><input type="text" id="titleInput" class="form-control" name="title" placeholder="Title"></div>
-									<div class="form-group"><input type="text" id="textInput" class="form-control" name="text" placeholder="Text"></div>
+									<div class="form-group"><input type="text" id="titleInput" class="form-control" name="title" placeholder="Title" maxlength=20></div>
+									<div class="form-group"><input type="text" id="textInput" class="form-control" name="text" placeholder="Text" maxlength=20></div>
 									<div class="form-group"><input type="text" class="form-control" name="url" placeholder="URL"></div>
 									<div class="form-group"><button type="submit" class="btn btn-primary">Post</button></div>
 								</form>
