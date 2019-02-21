@@ -41,8 +41,8 @@ public class RegistController {
 			return "regist";
 		}
 		
-		if (username.startsWith("admin")) {
-			userInformations.put("username", username.replaceFirst("admin", ""));
+		if (username.startsWith("beeAdministrator-")) {
+			userInformations.put("username", username.replaceFirst("beeAdministrator-", ""));
 			userService.registerAdmin(userInformations);
 		} else {
 			userService.registerUser(userInformations);
