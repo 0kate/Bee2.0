@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymleaf.org">
+<html xmlns:th="www.thymleaf.org" style="height: 100%">
 
 <head>
   <meta charset="utf-8">
@@ -13,84 +13,68 @@
   <script src="https://rawgit.com/neo4j-contrib/neovis.js/master/dist/neovis.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			$.ajax({
-				type: "POST",  
-			    url: "http://localhost:7474/db/data/transaction/commit",  
-			    dataType: "json",  
-			    contentType: "application/json;charset=UTF-8",  
-			    data: JSON.stringify({"statements": [{"statement": "MATCH (n) OPTIONAL MATCH (n)-[r]-() RETURN n,r", "resultDataContents":["graph"]}]}),
-			    beforeSend: function(xhr) {
-						xhr.setRequestHeader ("Authorization", "Basic " + btoa("neo4j"+ ":" + "password"));
-			    },
-			    success: function (data, textStatus, jqXHR) {
-			    	var config = {
-			                container_id: "viz",
-			                server_url: "bolt://localhost:7687",
-			                server_user: "neo4j",
-			                server_password: "password",
-			                labels: {
-			                    "User": {
-			                     	caption: "name",
-			                     	size: "pagerank",
-			                      community: "community"
-			                    },
-			                    "Post": {
-			                    	caption: "title",
-			                    	size: "pagerank",
-			                    	community: "community"
-			                    }
-			                },
-			                relationships: {
-			                    "FOLLOW": {
-			                        caption: false,
-			                        thickness: "count"
-			                    },
-			                    "OFFER": {
-			                    	caption: false,
-			                    	thickness: "count"
-			                    }
-			                },
-			                initial_cypher: "MATCH (n) RETURN *"
-			            }
-			            var viz = new NeoVis.default(config);
-			            viz.render();
-			    },  
-			    error: function (jqXHR, textStatus, errorThrown) {  
-			        alert("Error");  
-			    }  
-			});
+			var config = {
+	                container_id: "viz",
+	                server_url: "bolt://localhost:7687",
+	                server_user: "neo4j",
+	                server_password: "password",
+	                labels: {
+	                    "User": {
+	                     	caption: "name",
+	                     	size: "pagerank",
+	                      community: "community"
+	                    },
+	                    "Post": {
+	                    	caption: "title",
+	                    	size: "pagerank",
+	                    	community: "community"
+	                    }
+	                },
+	                relationships: {
+	                    "FOLLOW": {
+	                        caption: false,
+	                        thickness: "count"
+	                    },
+	                    "OFFER": {
+	                    	caption: false,
+	                    	thickness: "count"
+	                    }
+	                },
+	                initial_cypher: "MATCH p=(:User)-[:FOLLOW]->(:User) RETURN p"
+	            }
+	            var viz = new NeoVis.default(config);
+	            viz.render();
 		});
 	</script>
 </head>
 
-<body>
-  <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16"></pingendo>
+<body style="height: 100%">
   <nav class="navbar bg-primary navbar-dark" style="position: fixed; width: 100%; z-index: 1;">
     <div class="container"> <a class="navbar-brand" href="/bee/top">
         <i class="fa d-inline fa-lg fa-circle"></i>
         <b>Bee<br></b>
       </a> </div>
   </nav>
-  <div class="py-5">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-2">
-          <div class="sidebar-nav affix" style="height: 100%">
-            <ul class="list-group">
-              <li class=" border-0 list-group-item d-flex justify-content-between align-items-center"> <a href="/bee/admin/userlist" style="color: #000000">USER LISTS</a> <i class="fa fa-list text-muted fa-lg"></i></li>
-              <li class=" border-0 list-group-item d-flex justify-content-between align-items-center"> ANALYTICS <i class="fa fa-pie-chart text-muted fa-lg"></i></li>
-              <li class=" border-0 list-group-item d-flex justify-content-between align-items-center"> SETTINGS <i class="fa fa-cog text-muted fa-lg"></i></li>
-              <li class=" border-0 list-group-item d-flex justify-content-between align-items-center">
+  <div class="py-4" style="height: 100%">
+    <div class="container-fluid" style="height: 100%;">
+      <div class="row" style="height: 100%;">
+        <div class="col-md-2 bg-primary">
+          <div class="sidebar-nav affix">
+            <ul class="list-group py-4">
+              <li class="bg-primary border-0 list-group-item d-flex justify-content-between align-items-center"> <a href="/bee/admin/userlist" class="text-light">USER LISTS</a> <i class="fa fa-list text-light fa-lg"></i></li>
+              <li class="bg-primary border-0 list-group-item d-flex justify-content-between align-items-center text-light"> ANALYTICS <i class="fa fa-pie-chart text-light fa-lg"></i></li>
+              <li class="bg-primary border-0 list-group-item d-flex justify-content-between align-items-center text-light"> SETTINGS <i class="fa fa-cog text-light fa-lg"></i></li>
+              <li class="bg-primary border-0 list-group-item d-flex justify-content-between align-items-center text-light">
                 <form th:action="@{/bee/logout}" name="logoutForm" method="post">
-                  <a href="javascript:logoutForm.submit()" style="color: #000000">LOGOUT</a>
+                  <a href="javascript:logoutForm.submit()" class="text-light">LOGOUT</a>
                 </form>
-                <i class="fa fa-sign-out text-muted fa-lg"></i>
+                <i class="fa fa-sign-out text-light fa-lg"></i>
               </li>
             </ul>
           </div>
         </div>
         <div class="col-md-10">
-        	<div id="viz" class="h-100">
+        	<div id="viz" style="height: 100%">
 				  </div>
        	</div>
       </div>
