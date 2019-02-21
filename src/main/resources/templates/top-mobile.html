@@ -105,6 +105,7 @@
 														<td width="130">Following</td>
 													</tr>
 													<tr>
+														<input type="hidden" id="username" th:value="*{name}">
 														<td><a id="follower" class="my-1" th:href="@{/bee/follow/get(type=follower, name=*{name})}"></a></td>
 														<td><a id="following" class="my-1" th:href="@{/bee/follow/get(type=following, name=*{name})}"></a></td>
 													</tr>
