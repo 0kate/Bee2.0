@@ -9,10 +9,8 @@
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/css/alchemy.min.css">
   
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script type="text/javascript" src="/js/alchemy.min.js">
+  <script src="https://rawgit.com/neo4j-contrib/neovis.js/master/dist/neovis.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$.ajax({
@@ -20,45 +18,48 @@
 			    url: "http://localhost:7474/db/data/transaction/commit",  
 			    dataType: "json",  
 			    contentType: "application/json;charset=UTF-8",  
-			    data: JSON.stringify({"statements": [{"statement": "MATCH (n) OPTIONAL MATCH (n)-[r]-() RETURN n,r"}]}),
+			    data: JSON.stringify({"statements": [{"statement": "MATCH (n) OPTIONAL MATCH (n)-[r]-() RETURN n,r", "resultDataContents":["graph"]}]}),
 			    beforeSend: function(xhr) {
 						xhr.setRequestHeader ("Authorization", "Basic " + btoa("neo4j"+ ":" + "password"));
 			    },
-			    success: function (data, textStatus, jqXHR) {  
-			    	alchemy.begin({
-			            dataSource: neo4jtoD3Format(data),
-			            nodeCaption: 'name',
-			            nodeMouseOver: 'name',
-			            cluster: true,
-			            clusterColours: ["#1B9E77","#D95F02","#7570B3","#E7298A","#66A61E","#E6AB02"]});  
+			    success: function (data, textStatus, jqXHR) {
+			    	var config = {
+			                container_id: "viz",
+			                server_url: "bolt://localhost:32889",
+			                server_user: "neo4j",
+			                server_password: "password",
+			                labels: {
+			                    "User": {
+			                        caption: "username",
+			                        size: "pagerank",
+			                        community: "community"
+			                    },
+			                    "Post": {
+			                    	caption: "title",
+			                    	size: "pagerank",
+			                    	community: "community"
+			                    }
+			                },
+			                relationships: {
+			                    "FOLLOW": {
+			                        caption: false,
+			                        thickness: "count"
+			                    },
+			                    "OFFER": {
+			                    	caption: false,
+			                    	thickness: "count"
+			                    }
+			                },
+			                initial_cypher: "MATCH (n) RETURN n;"
+			            }
+			            var viz = new NeoVis.default(config);
+			            viz.render();
 			    },  
 			    error: function (jqXHR, textStatus, errorThrown) {  
 			        alert("Error");  
 			    }  
 			});
 		});
-		
-		function idIndex(a,id) {
-			for (var i=0;i<a.length;i++) {
-				if (a[i].id == id) return i;
-			}
-			return null;
-		}
-		
-		function neo4jtoD3Format(res) {
-			var nodes=[], links=[];
-			res.results[0].data.forEach(function (row) {
-			   row.graph.nodes.forEach(function (n) {
-			     if (idIndex(nodes,n.id) == null)
-			       nodes.push({id:n.id,label:n.labels[0],title:n.properties.name});
-			   });
-			   links = links.concat( row.graph.relationships.map(function(r) {
-			     return {start:idIndex(nodes,r.startNode),end:idIndex(nodes,r.endNode),type:r.type};
-			   }));
-			});
-			viz = {nodes:nodes, links:links};
-			return viz;
-		}
 	</script>
 </head>
 
@@ -89,7 +90,7 @@
           </div>
         </div>
         <div class="col-md-10">
-        	<div id="neo4jResponse">
+        	<div id="viz">
 				  </div>
        	</div>
       </div>
