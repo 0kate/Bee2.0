@@ -25,14 +25,14 @@
 			    success: function (data, textStatus, jqXHR) {
 			    	var config = {
 			                container_id: "viz",
-			                server_url: "bolt://localhost:32889",
+			                server_url: "bolt://localhost:7687",
 			                server_user: "neo4j",
 			                server_password: "password",
 			                labels: {
 			                    "User": {
-			                        caption: "username",
-			                        size: "pagerank",
-			                        community: "community"
+			                     	caption: "name",
+			                     	size: "pagerank",
+			                      community: "community"
 			                    },
 			                    "Post": {
 			                    	caption: "title",
@@ -50,7 +50,7 @@
 			                    	thickness: "count"
 			                    }
 			                },
-			                initial_cypher: "MATCH (n) RETURN n;"
+			                initial_cypher: "MATCH (n) RETURN *"
 			            }
 			            var viz = new NeoVis.default(config);
 			            viz.render();
@@ -90,7 +90,7 @@
           </div>
         </div>
         <div class="col-md-10">
-        	<div id="viz">
+        	<div id="viz" class="h-100">
 				  </div>
        	</div>
       </div>
