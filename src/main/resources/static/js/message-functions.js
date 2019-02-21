@@ -4,7 +4,7 @@ $(function() {
 	toInput.on('input', function(event) {
 		$.ajax({
 			type: "GET",
-			url: "/bee/ajax",
+			url: "/bee/ajax/usrExists",
 			data: { username: toInput.val() },
 			dataType: "json",
 			beforeSend: function(xhr, setting) {

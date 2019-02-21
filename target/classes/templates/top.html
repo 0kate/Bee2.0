@@ -95,15 +95,16 @@
 	              	<h6 class="card-subtitle">Follower</h6>	
 	             	</div>
 	             	<div class="col-md-6">
-	             		<h6 class="card-subtitle">Follower</h6>
+	             		<h6 class="card-subtitle">Following</h6>
 	             	</div>
               </div>
               <div class="row">
+              	<input type="hidden" id="username" th:value="*{name}">
               	<div class="col-md-6">
-              		<a class="my-1" th:href="@{/bee/follow/get(type=follower, name=*{name})}" th:text="${follower}"></a>
+              		<a id="follower" class="my-1" th:href="@{/bee/follow/get(type=follower, name=*{name})}"></a>
               	</div>
               	<div class="col-md-6">
-              		<a class="my-1" th:href="@{/bee/follow/get(type=following, name=*{name})}" th:text="${following}"></a>
+              		<a id="following" class="my-1" th:href="@{/bee/follow/get(type=following, name=*{name})}"></a>
               	</div>
               </div>
               <hr />

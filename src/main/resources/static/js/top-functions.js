@@ -27,3 +27,31 @@ $(function() {
 		if ($('#titleInput').val() != "") $(this).addClass('is-valid');
 	});
 });
+
+$(function() {
+	setInterval(function() {
+		$.ajax({
+			type: "GET",
+			url: "/bee/ajax/getFollower",
+			data: { username: $('#username').val() },
+			dataType: "json",
+			success: function(data) {
+				$('#follower').html(data['result']);
+			},
+			error: function() {
+			}
+		});
+		
+		$.ajax({
+			type: "GET",
+			url: "/bee/ajax/getFollowing",
+			data: { username: $('#username').val() },
+			dataType: "json",
+			success: function(data) {
+				$('#following').html(data['result']);
+			},
+			error: function() {
+			}
+		});
+	}, 500);
+});
