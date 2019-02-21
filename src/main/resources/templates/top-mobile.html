@@ -105,8 +105,8 @@
 														<td width="130">Following</td>
 													</tr>
 													<tr>
-														<td><a class="my-1" th:href="@{/bee/follow/get(type=follower, name=*{name})}" th:text="${follower}"></a></td>
-														<td><a class="my-1" th:href="@{/bee/follow/get(type=following, name=*{name})}" th:text="${following}"></a></td>
+														<td><a id="follower" class="my-1" th:href="@{/bee/follow/get(type=follower, name=*{name})}"></a></td>
+														<td><a id="following" class="my-1" th:href="@{/bee/follow/get(type=following, name=*{name})}"></a></td>
 													</tr>
 												</tbody>
 											</table>
